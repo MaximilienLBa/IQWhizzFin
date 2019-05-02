@@ -19,6 +19,7 @@ public class RegisterActivity extends AppCompatActivity {
     Button mButtonRegister;
     TextView mTextViewLogin;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
