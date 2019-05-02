@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">IQWhizzFin</string>
+
+    <string name="register">Register</string>
+    <string name="not_registerd">Not Registered ?</string>
+    <string name="password">Password</string>
+    <string name="username">Username</string>
+    <string name="email">Email</string>
+    <string name="age">Age</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="already_registered">Already registered ?</string>
+    <string name="login">LOGIN</string>
+
+
 </resources>

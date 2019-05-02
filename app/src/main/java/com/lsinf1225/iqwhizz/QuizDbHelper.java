@@ -1,11 +1,9 @@
 package com.lsinf1225.iqwhizz;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
 import com.lsinf1225.iqwhizz.QuizContract.*;
 
 import java.util.ArrayList;
@@ -13,7 +11,7 @@ import java.util.List;
 
 
 public class QuizDbHelper extends SQLiteOpenHelper {
-    private static final String DATABASE_NAME = "IQWhizz-J1B.db";
+    private static final String DATABASE_NAME = "IQWhizz-J1B45.db";
     private static final int DATABASE_VERSION = 1;
 
     private static QuizDbHelper instance;
