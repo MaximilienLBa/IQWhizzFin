@@ -10,6 +10,17 @@
     tools:context=".StartingScreenActivity">
 
     <!-- Text view pour IQWhizz-->
+    <Button
+        android:id="@+id/button_prof_main"
+        android:layout_width="163dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/spinner_category"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="-22dp"
+        android:layout_marginTop="368dp"
+        android:backgroundTint="@android:color/white"
+        android:text="Afficher/Modifier profil" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -41,7 +52,6 @@
         android:text="Start Quiz" />
 
     <View
-        android:id="@+id/myRectangleView"
         android:layout_width="130dp"
         android:layout_height="40dp"
         android:layout_below="@+id/button_start_quiz"
