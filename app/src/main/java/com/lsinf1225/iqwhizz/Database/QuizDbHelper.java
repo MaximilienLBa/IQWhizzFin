@@ -1,10 +1,13 @@
-package com.lsinf1225.iqwhizz;
+package com.lsinf1225.iqwhizz.Database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import com.lsinf1225.iqwhizz.QuizContract.*;
+
+import com.lsinf1225.iqwhizz.Category;
+import com.lsinf1225.iqwhizz.Question;
+import com.lsinf1225.iqwhizz.Database.QuizContract.*;
 
 import java.util.ArrayList;
 import java.util.List;

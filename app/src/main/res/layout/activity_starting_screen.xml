@@ -10,16 +10,6 @@
     tools:context=".StartingScreenActivity">
 
     <!-- Text view pour IQWhizz-->
-    <Button
-        android:id="@+id/button_prof_main"
-        android:layout_width="163dp"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/spinner_category"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="-22dp"
-        android:layout_marginTop="368dp"
-        android:backgroundTint="@android:color/white"
-        android:text="Afficher/Modifier profil" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -29,6 +19,15 @@
         android:text="IQWhizz"
         android:textColor="@android:color/white"
         android:textSize="35sp" />
+
+    <TextView
+        android:id="@+id/nom_utilisateur"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:textColor="@android:color/white"
+        android:textSize="20sp" />
 
     <!-- Text view pour le highscore soit le QI-->
     <TextView
@@ -51,7 +50,8 @@
         android:backgroundTint="@android:color/white"
         android:text="Start Quiz" />
 
-    <View
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/rectangle"
         android:layout_width="130dp"
         android:layout_height="40dp"
         android:layout_below="@+id/button_start_quiz"
@@ -71,5 +71,16 @@
         android:layout_marginTop="16dp">
 
     </Spinner>
+
+    <Button
+        android:id="@+id/button_prof"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rectangle"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"
+        android:backgroundTint="@android:color/white"
+        android:text="@string/afficher_modifier_profil" />
 
 </RelativeLayout>

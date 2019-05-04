@@ -1,15 +1,18 @@
 package com.lsinf1225.iqwhizz;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class User {
+public class User implements Serializable {
 
-    private static int id;
+    private int id;
     private String login;
-    private int age;
+    private String age;
     private String mdp;
     private String profil;
     private String mail;
+    private String username;
+
 
     //petite arraylist pour ajouter facilement et simplement des amis
     //j'ai mis les id ça me paraissait mieux même si dans le rapport ça dit des strings
@@ -48,9 +51,9 @@ public class User {
 
     public ArrayList<Integer> getAmis() { return amis; }
 
-    public int getAge() { return age; }
+    public String getAge() { return age; }
 
-    public static int getId() {return id; }
+    public int getId() {return id; }
 
     public String getLogin() { return login; }
 
@@ -60,10 +63,13 @@ public class User {
 
     public String getProfil() { return profil; }
 
+    public String getUsername() {
+        return username;
+    }
 
-    public void setAge(int age) { this.age = age; }
+    public void setAge(String age) { this.age = age; }
 
-    public static void setId(int id) { User.id = id; }
+    public void setId(int id) { this.id = id; }
 
     public void setLogin(String login) { this.login = login; }
 
@@ -73,6 +79,8 @@ public class User {
 
     public void setProfil(String profil) { this.profil = profil; }
 
-
+    public void setUsername(String username) {
+        this.username = username;
+    }
 }
 

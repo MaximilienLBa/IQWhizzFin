@@ -1,63 +1,88 @@
 package com.lsinf1225.iqwhizz;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.lsinf1225.iqwhizz.Database.DataBaseHelperForUser;
 public class ProfileActivity extends AppCompatActivity {
-    TextView mTextViewLogin;
-    TextView mTextViewAge;
-    TextView mTextViewMDP;
-    TextView mTextViewMail;
-    TextView mTextViewProfil;
+    private EditText editTextUsername, editTextPassword, editTextAge,editTextEmail;
+    private Button buttonSave, buttonCancel;
+    private User account;
 
-    EditText mTextAge;
-    EditText mTextMDP;
-    EditText mTextMail;
-    EditText mTextProfil;
-
-    Button mButtonModAge;
-    Button mButtonModMDP;
-    Button mButtonModMail;
-    Button mButtonModProfil;
-
-    ProfileDbHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile_own);
+        setContentView(R.layout.activity_profil);
 
-        db = new ProfileDbHelper(this);
-        mTextViewLogin = (TextView) findViewById(R.id.textViewLogin);
-        mTextViewAge = (TextView) findViewById(R.id.textViewAge);
-        mTextViewMDP = (TextView) findViewById(R.id.textViewMDP);
-        mTextViewMail =  (TextView) findViewById(R.id.textViewMail);
-        mTextViewProfil = (TextView) findViewById(R.id.textViewProf);
+        editTextUsername = findViewById(R.id.edittext_username);
+        editTextPassword = findViewById(R.id.edittext_password);
+        editTextAge = findViewById(R.id.edittext_age);
+        editTextEmail = findViewById(R.id.edittext_email);
 
-        mTextAge = (EditText) findViewById(R.id.editText_corr_age);
-        mTextMDP= (EditText) findViewById(R.id.editText_corr_mdp);
-        mTextMail = (EditText) findViewById(R.id.editText_corr_mail);
-        mTextProfil = (EditText) findViewById(R.id.editText_corr_profile);
+        loadData();
 
-        mButtonModAge = (Button) findViewById(R.id.button_mod_age);
-        mButtonModMail = (Button) findViewById(R.id.button_mod_mail);
-        mButtonModMDP = (Button) findViewById(R.id.button_mod_mdp);
-        mButtonModProfil = (Button) findViewById(R.id.button_mod_prof);
+        buttonSave = findViewById(R.id.save);
+        buttonSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try{
+                    DataBaseHelperForUser accountDB = new DataBaseHelperForUser(getApplicationContext());
+                    User currentAccount = accountDB.find(account.getId());
+                    String NewUsername = editTextUsername.getText().toString();
+                    User temp = accountDB.checkUsername(NewUsername);
+                    if (!NewUsername.equalsIgnoreCase(currentAccount.getUsername())&& temp != null ){
+                        Toast.makeText(ProfileActivity.this, "Change profile failed", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    currentAccount.setUsername(editTextUsername.getText().toString());
+                    currentAccount.setAge(editTextAge.getText().toString());
+                    currentAccount.setMail(editTextEmail.getText().toString());
+
+                    String password = editTextPassword.getText().toString();
+                    if(!password.isEmpty()){
+                        currentAccount.setMdp(editTextPassword.getText().toString());
+                    }
+                    if(accountDB.update(currentAccount)){
+                        Intent intent = new Intent(ProfileActivity.this, StartingScreenActivity.class);
+                        intent.putExtra("account",currentAccount);
+                        startActivity(intent);
+                    }else{
+                        Toast.makeText(ProfileActivity.this, "Change profile failed", Toast.LENGTH_SHORT).show();
+                    }
+                }catch (Exception e){
+                    Toast.makeText(ProfileActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
 
-        //Affichage des informations du profil de l'utilisateur
+        buttonCancel = findViewById(R.id.cancel);
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProfileActivity.this, StartingScreenActivity.class);
+                intent.putExtra("account",account);
+                startActivity(intent);
+            }
+        });
+
+    }
+
+    private void loadData(){
         Intent intent = getIntent();
-        int loginid = intent.getIntExtra(StartingScreenActivity.EXTRA_CATEGORY_ID,0);
-        String loginname = intent.getStringExtra(StartingScreenActivity.EXTRA_CATEGORY_NAME);
+        account = (User) intent.getSerializableExtra("account");
+        editTextEmail.setText(account.getMail());
+        editTextAge.setText(account.getAge());
+        editTextUsername.setText(account.getUsername());
+        editTextPassword.setText(account.getMdp());
 
-        mTextViewLogin.setText(loginname);
-
-        //Modification des informations du profil de l'utilisateur
     }
 }

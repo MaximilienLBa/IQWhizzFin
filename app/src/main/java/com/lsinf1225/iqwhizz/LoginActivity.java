@@ -9,23 +9,38 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class LoginActivity extends AppCompatActivity {
-    EditText mTextUsername;
-    EditText mTextPassword;
-    Button mButtonLogin;
-    TextView mTextViewRegister;
-    DataBaseHelperForLogin db;
+import com.lsinf1225.iqwhizz.Database.DataBaseHelperForUser;
 
+public class LoginActivity extends AppCompatActivity {
+
+    private EditText editTextUsername, editTextPassword;
+    private Button buttonLogin;
+    private TextView mTextViewRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        db = new DataBaseHelperForLogin(this);
-        mTextUsername = (EditText)findViewById(R.id.edittext_username);
-        mTextPassword = (EditText)findViewById(R.id.edittext_password);
-        mButtonLogin = (Button)findViewById(R.id.button_login);
+        editTextUsername = findViewById(R.id.edittext_username);
+        editTextPassword = findViewById(R.id.edittext_password);
+        buttonLogin = findViewById(R.id.button_login);
+        buttonLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DataBaseHelperForUser accountDB = new DataBaseHelperForUser(getApplicationContext());
+                String username = editTextUsername.getText().toString();
+                String password = editTextPassword.getText().toString();
+                User account = accountDB.login(username, password);
+                if (account == null){
+                    Toast.makeText(LoginActivity.this, "Invalid account", Toast.LENGTH_SHORT).show();
+                }else{
+                    Intent intent = new Intent(LoginActivity.this, StartingScreenActivity.class);
+                    intent.putExtra("account",account);
+                    startActivity(intent);
+                }
+            }
+        });
         mTextViewRegister = (TextView)findViewById(R.id.textview_register);
         mTextViewRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,22 +50,5 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        mButtonLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String user = mTextUsername.getText().toString().trim();
-                String pwd = mTextPassword.getText().toString().trim();
-                Boolean res = db.checkUser(user, pwd);
-                if(res == true)
-                {
-                    Intent HomePage = new Intent(LoginActivity.this,StartingScreenActivity.class);
-                    startActivity(HomePage);
-                }
-                else
-                {
-                    Toast.makeText(LoginActivity.this,"Login Error",Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
     }
 }

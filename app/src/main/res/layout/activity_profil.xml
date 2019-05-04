@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/img_background"
+    android:orientation="vertical"
+    tools:context=".ProfileActivity">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="127dp"
+        android:layout_marginTop="25dp"
+        app:srcCompat="@drawable/logo" />
+
+    <EditText
+        android:id="@+id/edittext_username"
+        android:layout_width="206dp"
+        android:layout_height="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="175dp"
+        android:background="#ffffff"
+        android:drawableLeft="@drawable/username"
+        android:hint="@string/username"
+        android:paddingLeft="2dp" />
+
+    <EditText
+        android:id="@+id/edittext_email"
+        android:layout_width="206dp"
+        android:layout_height="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="230dp"
+        android:background="#ffffff"
+        android:drawableLeft="@drawable/username"
+        android:hint="@string/email"
+        android:paddingLeft="2dp" />
+
+    <EditText
+        android:id="@+id/edittext_age"
+        android:layout_width="206dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="285dp"
+        android:background="#ffffff"
+        android:drawableLeft="@drawable/username"
+        android:hint="@string/age"
+        android:paddingLeft="2dp" />
+
+    <EditText
+        android:id="@+id/edittext_password"
+        android:layout_width="206dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="340dp"
+        android:background="#ffffff"
+        android:drawableLeft="@drawable/password"
+        android:hint="@string/password" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal" />
+
+    <Button
+        android:id="@+id/save"
+        android:layout_width="102dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="97dp"
+        android:layout_marginTop="400dp"
+        android:background="#04ea00"
+        android:text="@string/save" />
+
+    <Button
+        android:id="@+id/cancel"
+        android:layout_width="102dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="208dp"
+        android:layout_marginTop="400dp"
+        android:background="#04ea00"
+        android:text="@string/cancel" />
+
+</RelativeLayout>

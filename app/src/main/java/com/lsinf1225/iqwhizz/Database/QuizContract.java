@@ -1,4 +1,4 @@
-package com.lsinf1225.iqwhizz;
+package com.lsinf1225.iqwhizz.Database;
 
 import android.provider.BaseColumns;
 
@@ -26,14 +26,5 @@ public final class QuizContract {
         public static final String COLUMN_CATEGORY_ID = "category_id";
 
     }
-    public static class RegisterTable implements BaseColumns{
-        public static final String TABLE_NAME ="registeruser";
-        public static final String COLUMN_ID ="ID";
-        public static final String COLUMN_USERNAME ="username";
-        public static final String COLUMN_PASSWORD ="password";
-        public static final String COLUMN_AGE = "age";
-        public static final String COLUMN_MAIL = "email";
-    }
-
 }
 

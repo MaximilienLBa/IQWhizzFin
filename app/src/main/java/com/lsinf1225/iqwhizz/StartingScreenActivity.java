@@ -11,6 +11,10 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.lsinf1225.iqwhizz.Database.QuizDbHelper;
+
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 public class StartingScreenActivity extends AppCompatActivity {
@@ -24,9 +28,11 @@ public class StartingScreenActivity extends AppCompatActivity {
 
     private TextView textViewHighscore;
     private Spinner spinnerCategory;
+    private TextView textViewUtilsateur;
 
     private int highscore;
 
+    private User account;
 
 
     @Override
@@ -36,6 +42,11 @@ public class StartingScreenActivity extends AppCompatActivity {
 
         textViewHighscore = findViewById(R.id.text_view_highscore); // affichage du highscore
         spinnerCategory = findViewById(R.id.spinner_category); // affichage du spinner
+        textViewUtilsateur = findViewById(R.id.nom_utilisateur);
+
+        Intent intent = getIntent();
+        account = (User) intent.getSerializableExtra("account");
+        textViewUtilsateur.setText("Connecté : " + account.getUsername());
 
         //Load les catégories
         loadCategories();
@@ -48,6 +59,16 @@ public class StartingScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startQuiz();
+            }
+        });
+
+        Button buttonProfil = findViewById(R.id.button_prof);
+        buttonProfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(StartingScreenActivity.this, ProfileActivity.class);
+                intent1.putExtra("account",account);
+                startActivity(intent1);
             }
         });
 
