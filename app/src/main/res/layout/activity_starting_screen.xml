@@ -20,6 +20,7 @@
         android:textColor="@android:color/white"
         android:textSize="35sp" />
 
+
     <TextView
         android:id="@+id/nom_utilisateur"
         android:layout_width="wrap_content"
