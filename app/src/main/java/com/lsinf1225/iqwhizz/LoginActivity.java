@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.lsinf1225.iqwhizz.Database.DataBaseHelperForUser;
+import com.lsinf1225.iqwhizz.Database.QuizDbHelper;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -28,7 +28,7 @@ public class LoginActivity extends AppCompatActivity {
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DataBaseHelperForUser accountDB = new DataBaseHelperForUser(getApplicationContext());
+                QuizDbHelper accountDB = new QuizDbHelper(getApplicationContext());
                 String username = editTextUsername.getText().toString();
                 String password = editTextPassword.getText().toString();
                 User account = accountDB.login(username, password);

@@ -3,15 +3,13 @@ package com.lsinf1225.iqwhizz;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.lsinf1225.iqwhizz.Database.DataBaseHelperForUser;
-import com.lsinf1225.iqwhizz.User;
+import com.lsinf1225.iqwhizz.Database.QuizDbHelper;
 
 public class RegisterActivity extends AppCompatActivity {
     private EditText editTextUsername, editTextPassword, editTextAge,editTextEmail,editTextPasswordCnf;
@@ -32,7 +30,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try{
-                    DataBaseHelperForUser accountDB = new DataBaseHelperForUser(getApplicationContext());
+                    QuizDbHelper accountDB = new QuizDbHelper(getApplicationContext());
                     User account = new User();
                     String user = editTextUsername.getText().toString().trim();
                     String age = editTextAge.getText().toString().trim();

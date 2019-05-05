@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.lsinf1225.iqwhizz.Category;
 import com.lsinf1225.iqwhizz.Question;
 import com.lsinf1225.iqwhizz.Database.QuizContract.*;
+import com.lsinf1225.iqwhizz.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ public class QuizDbHelper extends SQLiteOpenHelper {
     private SQLiteDatabase db;
 
 
-    private QuizDbHelper(Context context) {
+    public QuizDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -60,8 +61,21 @@ public class QuizDbHelper extends SQLiteOpenHelper {
                 CategoriesTable.TABLE_NAME + "(" + CategoriesTable._ID + ")" + "ON DELETE CASCADE" +
                 ")";
 
+        final String SQL_CREATE_USER_TABLE = "CREATE TABLE " +
+                UserTable.TABLE_NAME + " ( " +
+                UserTable.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                UserTable.COLUMN_USERNAME + " TEXT, " +
+                UserTable.COLUMN_MAIL + " TEXT, " +
+                UserTable.COLUMN_AGE + " TEXT, " +
+                UserTable.COLUMN_PASSWORD + " TEXT " +
+                ")";
+
+
+
+        db.execSQL(SQL_CREATE_USER_TABLE);
         db.execSQL(SQL_CREATE_CATEGORIES_TABLE);
         db.execSQL(SQL_CREATE_QUESTIONS_TABLE);
+
         fillCategoriesTable();
         fillQuestionsTable();
     }
@@ -72,6 +86,7 @@ public class QuizDbHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + CategoriesTable.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + QuestionsTable.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + UserTable.TABLE_NAME);
         onCreate(db);
     }
 
@@ -81,6 +96,7 @@ public class QuizDbHelper extends SQLiteOpenHelper {
         super.onConfigure(db);
         db.setForeignKeyConstraintsEnabled(true);
     }
+
 
     //Remplis manuellement la table de catégories en faisant appel à insertCategory
     private void fillCategoriesTable(){
@@ -248,5 +264,109 @@ public class QuizDbHelper extends SQLiteOpenHelper {
 
         c.close();
         return questionList;
+    }
+
+
+    public boolean create(User account){
+        boolean result = true;
+        try{
+            SQLiteDatabase db = getWritableDatabase();
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(UserTable.COLUMN_USERNAME,account.getUsername());
+            contentValues.put(UserTable.COLUMN_PASSWORD,account.getMdp());
+            contentValues.put(UserTable.COLUMN_AGE,account.getAge());
+            contentValues.put(UserTable.COLUMN_MAIL,account.getMail());
+
+            result = db.insert(UserTable.TABLE_NAME,null,contentValues) > 0;
+
+        }catch(Exception e){
+            result = false;
+        }
+        return result;
+    }
+
+    public boolean update(User account){
+        boolean result = true;
+        try{
+            SQLiteDatabase db = getWritableDatabase();
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(UserTable.COLUMN_USERNAME,account.getUsername());
+            contentValues.put(UserTable.COLUMN_MAIL,account.getMail());
+            contentValues.put(UserTable.COLUMN_AGE,account.getAge());
+            contentValues.put(UserTable.COLUMN_PASSWORD,account.getMdp());
+
+            result = db.update(UserTable.TABLE_NAME,contentValues, UserTable.COLUMN_ID +" = ?",new String[] {String.valueOf(account.getId())}) > 0;
+
+        }catch(Exception e){
+            result = false;
+        }
+        return result;
+    }
+
+    public User login(String username, String password){
+        User account = null;
+        try{
+            SQLiteDatabase db = getReadableDatabase();
+            Cursor cursor = db.rawQuery("select * from " + UserTable.TABLE_NAME + " where username = ? and password = ?", new String[] {username,password});
+
+            if (cursor.moveToFirst()){
+                account = new User();
+                account.setId(cursor.getInt(0));
+                account.setUsername(cursor.getString(1));
+                account.setMail(cursor.getString(2));
+                account.setAge(cursor.getString(3));
+                account.setMdp(cursor.getString(4));
+
+            }
+        }catch (Exception e){
+            account = null;
+        }
+
+        return account;
+    }
+
+    public User find( int id){
+        User account = null;
+        try{
+            SQLiteDatabase db = getReadableDatabase();
+            Cursor cursor = db.rawQuery("select * from " + UserTable.TABLE_NAME + " where id = ?", new String[] {String.valueOf(id)});
+
+            if (cursor.moveToFirst()){
+                account = new User();
+                account.setId(cursor.getInt(0));
+                account.setUsername(cursor.getString(1));
+                account.setMail(cursor.getString(2));
+                account.setAge(cursor.getString(3));
+                account.setMdp(cursor.getString(4));
+
+            }
+        }catch (Exception e){
+            account = null;
+        }
+
+        return account;
+    }
+
+
+    public User checkUsername(String username){
+        User account = null;
+        try{
+            SQLiteDatabase db = getReadableDatabase();
+            Cursor cursor = db.rawQuery("select * from " + UserTable.TABLE_NAME + " where username = ?", new String[] {username});
+
+            if (cursor.moveToFirst()){
+                account = new User();
+                account.setId(cursor.getInt(0));
+                account.setUsername(cursor.getString(1));
+                account.setMail(cursor.getString(2));
+                account.setAge(cursor.getString(3));
+                account.setMdp(cursor.getString(4));
+
+            }
+        }catch (Exception e){
+            account = null;
+        }
+
+        return account;
     }
 }

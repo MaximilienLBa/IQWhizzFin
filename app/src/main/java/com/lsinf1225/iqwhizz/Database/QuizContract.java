@@ -27,5 +27,14 @@ public final class QuizContract {
         public static final String COLUMN_CATEGORY_ID = "category_id";
 
     }
+
+    public static class UserTable implements BaseColumns{
+        public static  String TABLE_NAME ="registeruser";
+        public static  String COLUMN_ID ="ID";
+        public static  String COLUMN_USERNAME ="username";
+        public static  String COLUMN_PASSWORD ="password";
+        public static  String COLUMN_AGE = "age";
+        public static  String COLUMN_MAIL = "email";
+    }
 }
 

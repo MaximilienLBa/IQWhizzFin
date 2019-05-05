@@ -1,6 +1,5 @@
 package com.lsinf1225.iqwhizz;
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,7 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.lsinf1225.iqwhizz.Database.DataBaseHelperForUser;
+import com.lsinf1225.iqwhizz.Database.QuizDbHelper;
+
 public class ProfileActivity extends AppCompatActivity {
     private EditText editTextUsername, editTextPassword, editTextAge,editTextEmail;
     private Button buttonSave, buttonCancel;
@@ -33,7 +33,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try{
-                    DataBaseHelperForUser accountDB = new DataBaseHelperForUser(getApplicationContext());
+                    QuizDbHelper accountDB = new QuizDbHelper(getApplicationContext());
                     User currentAccount = accountDB.find(account.getId());
                     String NewUsername = editTextUsername.getText().toString();
                     User temp = accountDB.checkUsername(NewUsername);
@@ -58,7 +58,7 @@ public class ProfileActivity extends AppCompatActivity {
                         Toast.makeText(ProfileActivity.this, "Change profile failed", Toast.LENGTH_SHORT).show();
                     }
                 }catch (Exception e){
-                    Toast.makeText(ProfileActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProfileActivity.this, "ErrorProfilActi", Toast.LENGTH_SHORT).show();
                 }
             }
         });
