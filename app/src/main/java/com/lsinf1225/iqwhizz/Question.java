@@ -4,6 +4,9 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Question implements Parcelable {
+    public static final String QUESTION_SET_1 = "Question Set 1";
+    public static final String QUESTION_SET_2 = "Question Set 2";
+    public static final String QUESTION_SET_3 = "Question Set 3";
 
     //Initialisation des variables réponses, la question, la catégorie et son id ainsi que le numéro
     //correspondant à la bonne réponse
@@ -13,21 +16,24 @@ public class Question implements Parcelable {
     private String option3;
     private String option4;
     private int answerNr;
+    private String questionSet;
     private int categoryID;
     private int id;
+
 
     //constructeur vide
     public Question() {
     }
 
     //Constructeur d'une question
-    public Question(String question, String option1, String option2, String option3,String option4, int answerNr, int categoryID) {
+    public Question(String question, String option1, String option2, String option3,String option4, int answerNr,String questionSet ,int categoryID) {
         this.question = question;
         this.option1 = option1;
         this.option2 = option2;
         this.option3 = option3;
         this.option4 = option4;
         this.answerNr = answerNr;
+        this.questionSet = questionSet;
         this.categoryID = categoryID;
     }
 
@@ -39,6 +45,7 @@ public class Question implements Parcelable {
         option3 = in.readString();
         option4 = in.readString();
         answerNr = in.readInt();
+        questionSet = in.readString();
         categoryID = in.readInt();
     }
 
@@ -50,7 +57,7 @@ public class Question implements Parcelable {
         dest.writeString(option2);
         dest.writeString(option3);
         dest.writeString(option4);
-
+        dest.writeString(questionSet);
         dest.writeInt(answerNr);
         dest.writeInt(categoryID);
     }
@@ -135,6 +142,17 @@ public class Question implements Parcelable {
 
     public void setCategoryID(int categoryID) {
         this.categoryID = categoryID;
+    }
+
+    public String getQuestionSet() {
+        return questionSet;
+    }
+
+    public void setQuestionSet(String questionSet) {
+        this.questionSet = questionSet;
+    }
+    public static String[] getAllQuestionSet(){
+        return new String[] {QUESTION_SET_1, QUESTION_SET_2, QUESTION_SET_3 };
     }
 }
 

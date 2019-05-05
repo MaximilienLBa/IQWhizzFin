@@ -24,6 +24,7 @@ public class QuizActivity extends AppCompatActivity {
     private TextView textViewScore;
     private TextView textViewQuestionCount;
     private TextView textViewCategory;
+    private TextView textViewQuestionSet;
     private TextView textViewCountDown;
     private RadioGroup rbGroup;
     private RadioButton rb1;
@@ -67,6 +68,7 @@ public class QuizActivity extends AppCompatActivity {
         textViewQuestion = findViewById(R.id.text_view_question);
         textViewScore = findViewById(R.id.text_view_score);
         textViewQuestionCount = findViewById(R.id.text_view_question_count);
+        textViewQuestionSet = findViewById(R.id.text_view_question_set);
         textViewCategory = findViewById(R.id.text_view_category);
         textViewCountDown = findViewById(R.id.text_view_countdown);
 
@@ -86,13 +88,15 @@ public class QuizActivity extends AppCompatActivity {
         Intent intent = getIntent();
         int categoryID = intent.getIntExtra(StartingScreenActivity.EXTRA_CATEGORY_ID,0);
         String categoryName = intent.getStringExtra(StartingScreenActivity.EXTRA_CATEGORY_NAME);
+        String questionSet = intent.getStringExtra(StartingScreenActivity.EXTRA_QUESTION_SET);
 
+        textViewQuestionSet.setText(questionSet);
         textViewCategory.setText("Category: " + categoryName);
 
         if(savedInstanceState == null ){
             QuizDbHelper dbHelper = QuizDbHelper.getInstance(this);
 
-            questionList = dbHelper.getQuestions(categoryID);
+            questionList = dbHelper.getQuestions(questionSet,categoryID);
             if(StartingScreenActivity.rapidQuiz == true){
                 questionCountTotal = 5;
             }else{

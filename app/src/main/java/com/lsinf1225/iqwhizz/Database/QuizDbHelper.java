@@ -54,6 +54,7 @@ public class QuizDbHelper extends SQLiteOpenHelper {
                 QuestionsTable.COLUMN_OPTION3 + " TEXT, " +
                 QuestionsTable.COLUMN_OPTION4 + " TEXT, " +
                 QuestionsTable.COLUMN_ANSWER_NR + " INTEGER, " +
+                QuestionsTable.COLUMN_QUESTIONSET + " TEXT, " +
                 QuestionsTable.COLUMN_CATEGORY_ID + " INTEGER, " +
                 "FOREIGN KEY(" + QuestionsTable.COLUMN_CATEGORY_ID + ") REFERENCES " +
                 CategoriesTable.TABLE_NAME + "(" + CategoriesTable._ID + ")" + "ON DELETE CASCADE" +
@@ -116,23 +117,23 @@ public class QuizDbHelper extends SQLiteOpenHelper {
 
     //Remplis manuellement la table "Question" en faisant appel à insertQuestion
     private void fillQuestionsTable() {
-        Question q1 = new Question("Programming: A is correct",
-                "A", "B", "C","D", 1, Category.PROGRAMMING);
+        Question q1 = new Question("Programming - QS 1: A is correct",
+                "A", "B", "C","D", 1, Question.QUESTION_SET_1,Category.PROGRAMMING);
         insertQuestion(q1);
-        Question q2 = new Question("Programming: B is correct",
-                "A", "B", "C","D", 2,Category.PROGRAMMING);
+        Question q2 = new Question("Programming - QS 1: B is correct",
+                "A", "B", "C","D", 2, Question.QUESTION_SET_1,Category.PROGRAMMING);
         insertQuestion(q2);
-        Question q3 = new Question("Programming: C is correct",
-                "A", "B", "C","D", 3, Category.PROGRAMMING);
+        Question q3 = new Question("Programming - QS 1: C is correct",
+                "A", "B", "C","D", 3, Question.QUESTION_SET_1, Category.PROGRAMMING);
         insertQuestion(q3);
-        Question q4 = new Question("Programming: A is correct again",
-                "A", "B", "C","D", 1, Category.PROGRAMMING);
+        Question q4 = new Question("Programming - QS 1: A is correct again",
+                "A", "B", "C","D", 1, Question.QUESTION_SET_1, Category.PROGRAMMING);
         insertQuestion(q4);
-        Question q5 = new Question("Programming: D is correct",
-                "A", "B", "C","D", 4, Category.PROGRAMMING);
+        Question q5 = new Question("Programming - QS 1: D is correct",
+                "A", "B", "C","D", 4, Question.QUESTION_SET_1, Category.PROGRAMMING);
         insertQuestion(q5);
-        Question q6 = new Question("Programming: B is correct again",
-                "A", "B", "C","D", 2, Category.PROGRAMMING);
+        Question q6 = new Question("Programming - QS 2: B is correct again",
+                "A", "B", "C","D", 2, Question.QUESTION_SET_2, Category.PROGRAMMING);
         insertQuestion(q6);
 
     }
@@ -161,6 +162,7 @@ public class QuizDbHelper extends SQLiteOpenHelper {
         cv.put(QuestionsTable.COLUMN_OPTION3, question.getOption3());
         cv.put(QuestionsTable.COLUMN_OPTION4, question.getOption4());
         cv.put(QuestionsTable.COLUMN_ANSWER_NR, question.getAnswerNr());
+        cv.put(QuestionsTable.COLUMN_QUESTIONSET, question.getQuestionSet());
         cv.put(QuestionsTable.COLUMN_CATEGORY_ID,question.getCategoryID());
         db.insert(QuestionsTable.TABLE_NAME, null, cv);
     }
@@ -200,6 +202,7 @@ public class QuizDbHelper extends SQLiteOpenHelper {
                 question.setOption3(c.getString(c.getColumnIndex(QuestionsTable.COLUMN_OPTION3)));
                 question.setOption4(c.getString(c.getColumnIndex(QuestionsTable.COLUMN_OPTION4)));
                 question.setAnswerNr(c.getInt(c.getColumnIndex(QuestionsTable.COLUMN_ANSWER_NR)));
+                question.setQuestionSet(c.getString(c.getColumnIndex(QuestionsTable.COLUMN_QUESTIONSET)));
                 question.setCategoryID(c.getInt(c.getColumnIndex(QuestionsTable.COLUMN_CATEGORY_ID)));
                 questionList.add(question);
             } while (c.moveToNext());
@@ -210,12 +213,12 @@ public class QuizDbHelper extends SQLiteOpenHelper {
     }
 
     //permet d'avoir la question + sa catégorie
-    public ArrayList<Question> getQuestions(int categoryID) {
+    public ArrayList<Question> getQuestions(String questionSet, int categoryID) {
         ArrayList<Question> questionList = new ArrayList<>();
         db = getReadableDatabase();
 
-        String selection = QuestionsTable.COLUMN_CATEGORY_ID + " = ? ";
-        String[] selectionArgs = new String[]{String.valueOf(categoryID)};
+        String selection = QuestionsTable.COLUMN_QUESTIONSET + " = ? " + " and " + QuestionsTable.COLUMN_CATEGORY_ID + " = ? ";
+        String[] selectionArgs = new String[]{questionSet,String.valueOf(categoryID)};
 
         Cursor c = db.query(
                 QuestionsTable.TABLE_NAME,
@@ -237,6 +240,7 @@ public class QuizDbHelper extends SQLiteOpenHelper {
                 question.setOption3(c.getString(c.getColumnIndex(QuestionsTable.COLUMN_OPTION3)));
                 question.setOption4(c.getString(c.getColumnIndex(QuestionsTable.COLUMN_OPTION4)));
                 question.setAnswerNr(c.getInt(c.getColumnIndex(QuestionsTable.COLUMN_ANSWER_NR)));
+                question.setQuestionSet(c.getString(c.getColumnIndex(QuestionsTable.COLUMN_QUESTIONSET)));
                 question.setCategoryID(c.getInt(c.getColumnIndex(QuestionsTable.COLUMN_CATEGORY_ID)));
                 questionList.add(question);
             } while (c.moveToNext());

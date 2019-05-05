@@ -26,12 +26,21 @@
         android:textColor="@android:color/black"
         android:freezesText="true"/>
 
+    <TextView
+        android:id="@+id/text_view_question_set"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_view_question_count"
+        android:freezesText="true"
+        android:text="Question set: "
+        android:textColor="@android:color/black" />
     <!-- Affichage de la catégories de la question -->
+
     <TextView
         android:id="@+id/text_view_category"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/text_view_question_count"
+        android:layout_below="@id/text_view_question_set"
         android:freezesText="true"
         android:text="Category: "
         android:textColor="@android:color/black" />
