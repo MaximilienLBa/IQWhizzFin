@@ -93,16 +93,23 @@ public class QuizActivity extends AppCompatActivity {
             QuizDbHelper dbHelper = QuizDbHelper.getInstance(this);
 
             questionList = dbHelper.getQuestions(categoryID);
-            questionCountTotal = questionList.size();
+            if(StartingScreenActivity.rapidQuiz == true){
+                questionCountTotal = 5;
+            }else{
+                questionCountTotal = 40;
+            }
             Collections.shuffle(questionList);
-
             showNextQuestion();
         }else {
             questionList= savedInstanceState.getParcelableArrayList(KEY_QUESTION_LIST);
             if (questionList == null){
                 finish();
             }
-            questionCountTotal = questionList.size();
+            if(StartingScreenActivity.rapidQuiz == true){
+                questionCountTotal = 5;
+            }else{
+                questionCountTotal = 40;
+            }
             questionCounter = savedInstanceState.getInt(KEY_QUESTION_COUNT);
             currentQuestion = questionList.get(questionCounter -1);
             score = savedInstanceState.getInt(KEY_SCORE);
@@ -162,6 +169,7 @@ public class QuizActivity extends AppCompatActivity {
         }
         else {
             finishQuiz();
+            StartingScreenActivity.rapidQuiz = false;
         }
     }
 

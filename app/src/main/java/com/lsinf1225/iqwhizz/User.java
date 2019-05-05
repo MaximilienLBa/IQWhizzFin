@@ -12,7 +12,7 @@ public class User implements Serializable {
     private String profil;
     private String mail;
     private String username;
-    private bool demande;
+    private boolean demande;
     private int idask;
 
 
@@ -27,7 +27,7 @@ public class User implements Serializable {
 
     //pas encore implémenter, je sais pas encore comment faire :(
     public void askFriendUser(User a){
-        if(a.id!=NULL)
+        if(a.id != -1)
         {
             a.demande=true;
             a.idask=this.id;

@@ -34,6 +34,7 @@ public class StartingScreenActivity extends AppCompatActivity {
 
     private User account;
 
+    public static boolean rapidQuiz = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,11 +55,20 @@ public class StartingScreenActivity extends AppCompatActivity {
         loadHighscore();
 
         // Lancement du quizz
-        Button buttonStartQuiz = findViewById(R.id.button_start_quiz);
-        buttonStartQuiz.setOnClickListener(new View.OnClickListener() {
+        Button buttonNormalQuiz = findViewById(R.id.button_start_quiz);
+        buttonNormalQuiz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startQuiz();
+                startNormalQuiz();
+            }
+        });
+
+        Button buttonRapidQuiz = findViewById(R.id.button_rapid_quiz);
+        buttonRapidQuiz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rapidQuiz = true;
+                startRapidQuiz();
             }
         });
 
@@ -74,9 +84,20 @@ public class StartingScreenActivity extends AppCompatActivity {
 
 
     }
+    private void startRapidQuiz(){
+        Category selectedCategory = (Category) spinnerCategory.getSelectedItem();
+        int categoryID = selectedCategory.getId();
+        String categoryName = selectedCategory.getName();
 
+
+        Intent intent = new Intent(StartingScreenActivity.this, QuizActivity.class);
+        intent.putExtra(EXTRA_CATEGORY_ID,categoryID);
+        intent.putExtra(EXTRA_CATEGORY_NAME,categoryName);
+        startActivityForResult(intent,REQUEST_CODE_QUIZZ);
+
+    }
     //Lancement du quizz en fonction des catégories
-    private void startQuiz() {
+    private void startNormalQuiz() {
         Category selectedCategory = (Category) spinnerCategory.getSelectedItem();
         int categoryID = selectedCategory.getId();
         String categoryName = selectedCategory.getName();

@@ -119,20 +119,20 @@ public class QuizDbHelper extends SQLiteOpenHelper {
         Question q1 = new Question("Programming: A is correct",
                 "A", "B", "C","D", 1, Category.PROGRAMMING);
         insertQuestion(q1);
-        Question q2 = new Question("Geography: B is correct",
-                "A", "B", "C","D", 2,Category.GEOGRAPHY);
+        Question q2 = new Question("Programming: B is correct",
+                "A", "B", "C","D", 2,Category.PROGRAMMING);
         insertQuestion(q2);
-        Question q3 = new Question("Math: C is correct",
-                "A", "B", "C","D", 3, Category.MATH);
+        Question q3 = new Question("Programming: C is correct",
+                "A", "B", "C","D", 3, Category.PROGRAMMING);
         insertQuestion(q3);
-        Question q4 = new Question("Math: A is correct",
-                "A", "B", "C","D", 1, Category.MATH);
+        Question q4 = new Question("Programming: A is correct again",
+                "A", "B", "C","D", 1, Category.PROGRAMMING);
         insertQuestion(q4);
         Question q5 = new Question("Programming: D is correct",
                 "A", "B", "C","D", 4, Category.PROGRAMMING);
         insertQuestion(q5);
-        Question q6 = new Question("Non existing: B is correct",
-                "A", "B", "C","D", 2, 5);
+        Question q6 = new Question("Programming: B is correct again",
+                "A", "B", "C","D", 2, Category.PROGRAMMING);
         insertQuestion(q6);
 
     }
