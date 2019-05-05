@@ -12,6 +12,8 @@ public class User implements Serializable {
     private String profil;
     private String mail;
     private String username;
+    private bool demande;
+    private int idask;
 
 
     //petite arraylist pour ajouter facilement et simplement des amis
@@ -25,12 +27,19 @@ public class User implements Serializable {
 
     //pas encore implémenter, je sais pas encore comment faire :(
     public void askFriendUser(User a){
+        if(a.id!=NULL)
+        {
+            a.demande=true;
+            a.idask=this.id;
+        }
     }
 
 
     //assez simple à faire
     public void addFriendUser(User a){
-        this.amis.add(a.id);
+        if((this.demande==true)&&(a.id==this.idask)) {
+            this.amis.add(a.id);
+        }
     }
 
     //User a doit être dans la liste sinon ça retourne false
