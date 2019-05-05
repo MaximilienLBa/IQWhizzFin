@@ -14,7 +14,7 @@ import com.lsinf1225.iqwhizz.Database.DataBaseHelperForUser;
 import com.lsinf1225.iqwhizz.User;
 
 public class RegisterActivity extends AppCompatActivity {
-    private EditText editTextUsername, editTextPassword, editTextAge,editTextEmail;
+    private EditText editTextUsername, editTextPassword, editTextAge,editTextEmail,editTextPasswordCnf;
     private Button buttonSave;
     private TextView mTextViewLogin;
     @Override
@@ -26,6 +26,7 @@ public class RegisterActivity extends AppCompatActivity {
         editTextPassword = findViewById(R.id.edittext_password);
         editTextAge = findViewById(R.id.edittext_age);
         editTextEmail = findViewById(R.id.edittext_email);
+        editTextPasswordCnf = findViewById(R.id.edittext_cnf_password);
         buttonSave = findViewById(R.id.button_register);
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,23 +34,40 @@ public class RegisterActivity extends AppCompatActivity {
                 try{
                     DataBaseHelperForUser accountDB = new DataBaseHelperForUser(getApplicationContext());
                     User account = new User();
-                    account.setMail(editTextEmail.getText().toString());
-                    account.setAge(editTextAge.getText().toString());
-                    account.setUsername(editTextUsername.getText().toString());
-                    account.setMdp(editTextPassword.getText().toString());
-                    User temp = accountDB.checkUsername(editTextUsername.getText().toString());
-                    if(temp == null) {
-                        if (accountDB.create(account)) {
-                            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                            startActivity(intent);
-
-                        } else {
-                            Toast.makeText(RegisterActivity.this, "Can not create", Toast.LENGTH_SHORT).show();
-                        }
-                    }else{
-                        Toast.makeText(RegisterActivity.this, "Username Exist", Toast.LENGTH_SHORT).show();
+                    String user = editTextUsername.getText().toString().trim();
+                    String age = editTextAge.getText().toString().trim();
+                    String mail = editTextEmail.getText().toString().trim();
+                    String pwd = editTextPassword.getText().toString().trim();
+                    String cnf_pwd = editTextPasswordCnf.getText().toString().trim();
+                    if (user.equals("") || pwd.equals("")|| age.equals("") || mail.equals("")) {
+                        Toast.makeText(RegisterActivity.this, "Registeration Error - field empty", Toast.LENGTH_SHORT).show();
                     }
+                    else {
+                        if (pwd.equals(cnf_pwd)){
+                            if(mail.contains("@") == false && mail.contains(".") == false){
+                                Toast.makeText(RegisterActivity.this, "Wrong email", Toast.LENGTH_SHORT).show();
+                            }else{
+                                User temp = accountDB.checkUsername(editTextUsername.getText().toString());
+                                if(temp == null) {
+                                    account.setMail(editTextEmail.getText().toString());
+                                    account.setAge(editTextAge.getText().toString());
+                                    account.setUsername(editTextUsername.getText().toString());
+                                    account.setMdp(editTextPassword.getText().toString());
+                                    if (accountDB.create(account)) {
+                                        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                                        startActivity(intent);
 
+                                    } else {
+                                        Toast.makeText(RegisterActivity.this, "Can not create", Toast.LENGTH_SHORT).show();
+                                    }
+                                }else{
+                                    Toast.makeText(RegisterActivity.this, "Username Exist", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }else{
+                            Toast.makeText(RegisterActivity.this, "Password is not matching", Toast.LENGTH_SHORT).show();
+                        }
+                    }
                 }catch (Exception e){
                     Toast.makeText(RegisterActivity.this, "Error", Toast.LENGTH_SHORT).show();
                 }
