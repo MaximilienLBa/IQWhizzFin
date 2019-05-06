@@ -44,10 +44,9 @@ public class QuizActivity extends AppCompatActivity {
     private int questionCountTotal;
     private Question currentQuestion;
 
-    private int score;
     private boolean answered;
-
-    public static final String EXTRA_SCORE = "extrascore";
+    public  int scoreDB;
+    public static int scoreFinal;
 
     private long backPressedTime;
 
@@ -58,6 +57,7 @@ public class QuizActivity extends AppCompatActivity {
     private static final String KEY_MILLIS_LEFT = "keyMillisLeft";
     private static final String KEY_ANSWERED = "keyAnswered";
     private static final String KEY_QUESTION_LIST = "keyQuestionList";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,7 +116,6 @@ public class QuizActivity extends AppCompatActivity {
             }
             questionCounter = savedInstanceState.getInt(KEY_QUESTION_COUNT);
             currentQuestion = questionList.get(questionCounter -1);
-            score = savedInstanceState.getInt(KEY_SCORE);
             timeLeftInMillis = savedInstanceState.getLong(KEY_MILLIS_LEFT);
             answered = savedInstanceState.getBoolean(KEY_ANSWERED);
 
@@ -224,8 +223,8 @@ public class QuizActivity extends AppCompatActivity {
         int answerNr = rbGroup.indexOfChild(rbSelected) + 1;
 
         if (answerNr == currentQuestion.getAnswerNr()){
-            score++;
-            textViewScore.setText("Score: " + score);
+            scoreDB++;
+            textViewScore.setText("Score: " + scoreDB);
         }
 
         showSolution();
@@ -267,9 +266,8 @@ public class QuizActivity extends AppCompatActivity {
 
     //Permet de terminer le quizz
     private void finishQuiz(){
-        Intent resultIntent = new Intent();
-        resultIntent.putExtra(EXTRA_SCORE, score);
-        setResult(RESULT_OK,resultIntent);
+        scoreFinal = scoreDB;
+        scoreDB = 0;
         finish();
     }
 
@@ -301,7 +299,6 @@ public class QuizActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(KEY_SCORE, score);
         outState.putInt(KEY_QUESTION_COUNT, questionCounter);
         outState.putLong(KEY_MILLIS_LEFT, timeLeftInMillis);
         outState.putBoolean(KEY_ANSWERED, answered);

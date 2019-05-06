@@ -67,7 +67,8 @@ public class QuizDbHelper extends SQLiteOpenHelper {
                 UserTable.COLUMN_USERNAME + " TEXT, " +
                 UserTable.COLUMN_MAIL + " TEXT, " +
                 UserTable.COLUMN_AGE + " TEXT, " +
-                UserTable.COLUMN_PASSWORD + " TEXT " +
+                UserTable.COLUMN_PASSWORD + " TEXT, " +
+                UserTable.COLUMN_SCORE  + " INTEGER " +
                 ")";
 
 
@@ -276,6 +277,7 @@ public class QuizDbHelper extends SQLiteOpenHelper {
             contentValues.put(UserTable.COLUMN_PASSWORD,account.getMdp());
             contentValues.put(UserTable.COLUMN_AGE,account.getAge());
             contentValues.put(UserTable.COLUMN_MAIL,account.getMail());
+            contentValues.put(UserTable.COLUMN_SCORE,0);
 
             result = db.insert(UserTable.TABLE_NAME,null,contentValues) > 0;
 
@@ -294,6 +296,7 @@ public class QuizDbHelper extends SQLiteOpenHelper {
             contentValues.put(UserTable.COLUMN_MAIL,account.getMail());
             contentValues.put(UserTable.COLUMN_AGE,account.getAge());
             contentValues.put(UserTable.COLUMN_PASSWORD,account.getMdp());
+            contentValues.put(UserTable.COLUMN_SCORE,account.getScore());
 
             result = db.update(UserTable.TABLE_NAME,contentValues, UserTable.COLUMN_ID +" = ?",new String[] {String.valueOf(account.getId())}) > 0;
 
@@ -316,6 +319,7 @@ public class QuizDbHelper extends SQLiteOpenHelper {
                 account.setMail(cursor.getString(2));
                 account.setAge(cursor.getString(3));
                 account.setMdp(cursor.getString(4));
+                account.setScore(cursor.getInt(5));
 
             }
         }catch (Exception e){
@@ -338,6 +342,7 @@ public class QuizDbHelper extends SQLiteOpenHelper {
                 account.setMail(cursor.getString(2));
                 account.setAge(cursor.getString(3));
                 account.setMdp(cursor.getString(4));
+                account.setScore(cursor.getInt(5));
 
             }
         }catch (Exception e){
@@ -361,6 +366,7 @@ public class QuizDbHelper extends SQLiteOpenHelper {
                 account.setMail(cursor.getString(2));
                 account.setAge(cursor.getString(3));
                 account.setMdp(cursor.getString(4));
+                account.setScore(cursor.getInt(5));
 
             }
         }catch (Exception e){
@@ -368,5 +374,24 @@ public class QuizDbHelper extends SQLiteOpenHelper {
         }
 
         return account;
+    }
+
+    public int getScoreDB(String username){
+        int score = 0 ;
+        try{
+            SQLiteDatabase db = getReadableDatabase();
+            Cursor cursor = db.rawQuery("select score from " + UserTable.TABLE_NAME + " where username = ?", new String[] {username});
+
+            if (cursor.moveToFirst()) {
+                do {
+                    score = cursor.getInt(cursor.getColumnIndex("score"));
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+            return score;
+
+        }catch (Exception e){
+            return -1;
+        }
     }
 }

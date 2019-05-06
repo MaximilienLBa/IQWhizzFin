@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.lsinf1225.iqwhizz.Database.QuizDbHelper;
 
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -24,16 +23,11 @@ public class StartingScreenActivity extends AppCompatActivity {
     public static final String EXTRA_CATEGORY_ID = "extraCategoryId";
     public static final String EXTRA_QUESTION_SET = "extraQuestionSet";
 
-    public static final String SHARED_PREFS = "sharedPrefs";
-    public static final String KEY_HIGHSCORE = "keyHighscore";
-
     private TextView textViewHighscore;
     private Spinner spinnerCategory;
     private Spinner spinnerQuestionSet;
 
     private TextView textViewUtilsateur;
-
-    private int highscore;
 
     private User account;
 
@@ -44,7 +38,6 @@ public class StartingScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_starting_screen);
 
-        textViewHighscore = findViewById(R.id.text_view_highscore); // affichage du highscore
         spinnerCategory = findViewById(R.id.spinner_category); // affichage du spinner
         spinnerQuestionSet = findViewById(R.id.spinner_question_set);
         textViewUtilsateur = findViewById(R.id.nom_utilisateur);
@@ -61,7 +54,19 @@ public class StartingScreenActivity extends AppCompatActivity {
         //Load les catégories
         loadCategories();
         //Load le highscore
-        loadHighscore();
+        Button buttonClassement = findViewById(R.id.button_leaderboard);
+        buttonClassement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                QuizDbHelper accountDB = new QuizDbHelper(getApplicationContext());
+                User currentAccount = accountDB.find(account.getId());
+                currentAccount.setScore(QuizActivity.scoreFinal);
+                Intent intent = new Intent(StartingScreenActivity.this, Classement.class);
+                intent.putExtra("account", currentAccount);
+                startActivity(intent);
+
+            }
+        });
 
         // Lancement du quizz
         Button buttonNormalQuiz = findViewById(R.id.button_start_quiz);
@@ -96,7 +101,7 @@ public class StartingScreenActivity extends AppCompatActivity {
 
     //Lancement du quizz en fonction des catégories
     private void startQuiz() {
-       String questionSet = spinnerQuestionSet.getSelectedItem().toString();
+        String questionSet = spinnerQuestionSet.getSelectedItem().toString();
 
         Category selectedCategory = (Category) spinnerCategory.getSelectedItem();
         int categoryID = selectedCategory.getId();
@@ -110,19 +115,7 @@ public class StartingScreenActivity extends AppCompatActivity {
         startActivityForResult(intent,REQUEST_CODE_QUIZZ);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == REQUEST_CODE_QUIZZ){
-            if (resultCode == RESULT_OK){
-                int score = data.getIntExtra(QuizActivity.EXTRA_SCORE,0);
-                if (score > highscore){
-                    updateHighScore(score);
-                }
-            }
-        }
-    }
     private void loadCategories() {
         QuizDbHelper dbHelper = QuizDbHelper.getInstance(this);
         List<Category> categories = dbHelper.getAllCategories();
@@ -131,21 +124,5 @@ public class StartingScreenActivity extends AppCompatActivity {
                 android.R.layout.simple_spinner_item, categories);
         adapterCategories.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCategory.setAdapter(adapterCategories);
-    }
-
-    private void loadHighscore(){
-        SharedPreferences prefs = getSharedPreferences(SHARED_PREFS,MODE_PRIVATE);
-        highscore = prefs.getInt(KEY_HIGHSCORE,0);
-        textViewHighscore.setText("Highscore : "+ highscore);
-    }
-
-    private void updateHighScore(int highscoreNew){
-        highscore = highscoreNew;
-        textViewHighscore.setText("Highscore: " + highscore);
-
-        SharedPreferences prefs = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putInt(KEY_HIGHSCORE,highscore);
-        editor.apply();
     }
 }

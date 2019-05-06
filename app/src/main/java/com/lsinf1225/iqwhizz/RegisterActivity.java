@@ -51,6 +51,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     account.setAge(editTextAge.getText().toString());
                                     account.setUsername(editTextUsername.getText().toString());
                                     account.setMdp(editTextPassword.getText().toString());
+                                    account.setScore(0);
                                     if (accountDB.create(account)) {
                                         Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                                         startActivity(intent);

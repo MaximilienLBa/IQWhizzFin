@@ -35,6 +35,7 @@ public final class QuizContract {
         public static  String COLUMN_PASSWORD ="password";
         public static  String COLUMN_AGE = "age";
         public static  String COLUMN_MAIL = "email";
+        public static  String COLUMN_SCORE = "score";
     }
 }
 

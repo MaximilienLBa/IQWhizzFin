@@ -12,6 +12,8 @@ public class User implements Serializable {
     private String profil;
     private String mail;
     private String username;
+    public int score;
+
     private boolean demande;
     private int idask;
 
@@ -20,10 +22,6 @@ public class User implements Serializable {
     //j'ai mis les id ça me paraissait mieux même si dans le rapport ça dit des strings
     private ArrayList<Integer>  amis = new ArrayList<Integer>();
 
-
-    public int getScore(Question q){
-        return 0;//faut d'abord faire la classe score
-    }
 
     //pas encore implémenter, je sais pas encore comment faire :(
     public void askFriendUser(User a){
@@ -90,6 +88,14 @@ public class User implements Serializable {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public  void setScore(int score) {
+        this.score = score;
     }
 }
 

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lsinf1225.iqwhizz.Database.QuizDbHelper;
@@ -50,6 +51,7 @@ public class ProfileActivity extends AppCompatActivity {
                     if(!password.isEmpty()){
                         currentAccount.setMdp(editTextPassword.getText().toString());
                     }
+
                     if(accountDB.update(currentAccount)){
                         Intent intent = new Intent(ProfileActivity.this, StartingScreenActivity.class);
                         intent.putExtra("account",currentAccount);
@@ -83,6 +85,5 @@ public class ProfileActivity extends AppCompatActivity {
         editTextAge.setText(account.getAge());
         editTextUsername.setText(account.getUsername());
         editTextPassword.setText(account.getMdp());
-
     }
 }
