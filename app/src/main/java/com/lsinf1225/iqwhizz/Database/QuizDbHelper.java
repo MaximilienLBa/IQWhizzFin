@@ -394,4 +394,25 @@ public class QuizDbHelper extends SQLiteOpenHelper {
             return -1;
         }
     }
+
+    public List<User> getUser(){
+        List<User> userList = new ArrayList<User>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor User = db.query(UserTable.TABLE_NAME,
+                new String[] { UserTable.COLUMN_USERNAME, UserTable.COLUMN_SCORE},
+                null,
+                null,
+                null,
+                null,
+                UserTable.COLUMN_SCORE+" DESC");
+        if (User.moveToFirst()) {
+            do {
+                User user = new User();
+                user.setUsername(User.getString(User.getColumnIndex(UserTable.COLUMN_USERNAME)));
+                user.setScore(User.getInt(User.getColumnIndex(UserTable.COLUMN_SCORE)));
+                userList.add(user);
+            } while (User.moveToNext());
+        }
+        return userList;
+    }
 }

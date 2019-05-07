@@ -22,6 +22,13 @@ public class User implements Serializable {
     //j'ai mis les id ça me paraissait mieux même si dans le rapport ça dit des strings
     private ArrayList<Integer>  amis = new ArrayList<Integer>();
 
+    public User (){
+
+    }
+    public User(String username, int score) {
+        this.username = username;
+        this.score = score;
+    }
 
     //pas encore implémenter, je sais pas encore comment faire :(
     public void askFriendUser(User a){
