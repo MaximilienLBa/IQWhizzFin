@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/img_background"
+    android:padding="16dp"
+    tools:context=".Classement">
+
+    <TextView
+        android:id="@+id/score"
+        android:layout_width="206dp"
+        android:layout_height="40dp"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="20dp"/>
+
+    <Button
+        android:id="@+id/button_start_quiz"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/button_score_user1"
+        android:layout_centerInParent="true"
+        android:backgroundTint="@android:color/white"
+        android:text="Start Quizz" />
+
+    <Button
+        android:id="@+id/button_score_user1"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/button_score_user2"
+        android:layout_centerInParent="true"
+        android:backgroundTint="@android:color/white"
+        android:text="Score User1" /> <!-- mettre le login de l'utilisateur -->
+
+    <Button
+        android:id="@+id/button_score_user2"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:backgroundTint="@android:color/white"
+        android:text="Score User2" /> <!-- mettre le login de l'utilisateur2 -->
+
+</RelativeLayout>
