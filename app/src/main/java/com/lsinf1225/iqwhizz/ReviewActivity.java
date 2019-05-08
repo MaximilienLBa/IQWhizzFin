@@ -56,7 +56,7 @@ import java.util.Locale;
             questionnumber=QuizActivity.getQuestionCountTotal();
             age=Integer.parseInt(StartingScreenActivity.account.getAge());
 
-            //image.setImageResource(R.drawable.einstein);
+
 
 
 
