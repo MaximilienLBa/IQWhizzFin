@@ -180,6 +180,7 @@ public class QuizActivity extends AppCompatActivity {
         else {
             finishQuiz();
             StartingScreenActivity.rapidQuiz = false;
+
         }
     }
 
@@ -276,7 +277,7 @@ public class QuizActivity extends AppCompatActivity {
 
         scoreFinal = scoreDB;
         scoreDB = 0;
-
+        questionCounter=0;
         // lance la review
         Intent ReviewIntent = new Intent (QuizActivity.this, ReviewActivity.class);
         startActivity(ReviewIntent);
@@ -293,6 +294,7 @@ public class QuizActivity extends AppCompatActivity {
         if (backPressedTime +2000 > System.currentTimeMillis()){
             scoreFinal = scoreDB;
             scoreDB = 0;
+            questionCounter=0;
             finish();
         } else {
             Toast.makeText(this, "Press back again to finish", Toast.LENGTH_SHORT).show();
