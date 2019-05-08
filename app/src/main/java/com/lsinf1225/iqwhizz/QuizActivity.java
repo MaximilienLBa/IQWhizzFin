@@ -61,7 +61,7 @@ public class QuizActivity extends AppCompatActivity {
     //variables et méthodes pour le review
     private static int totaltime;//rajout pour le reviewactivity
     public static int getTotaltime() { return totaltime; }
-    public static int getScore(){ return scoreDB;}
+    public static int getScore(){ return scoreFinal;}
     public static int getQuestionCountTotal(){return questionCountTotal;}
 
 
@@ -273,11 +273,14 @@ public class QuizActivity extends AppCompatActivity {
 
     //Permet de terminer le quizz
     private void finishQuiz(){
+
+        scoreFinal = scoreDB;
+        scoreDB = 0;
+
         // lance la review
         Intent ReviewIntent = new Intent (QuizActivity.this, ReviewActivity.class);
         startActivity(ReviewIntent);
-        scoreFinal = scoreDB;
-        scoreDB = 0;
+
         finish();
     }
 
@@ -288,7 +291,9 @@ public class QuizActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (backPressedTime +2000 > System.currentTimeMillis()){
-            finishQuiz();
+            scoreFinal = scoreDB;
+            scoreDB = 0;
+            finish();
         } else {
             Toast.makeText(this, "Press back again to finish", Toast.LENGTH_SHORT).show();
         }

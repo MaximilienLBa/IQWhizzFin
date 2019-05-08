@@ -57,7 +57,7 @@ public class RegisterActivity extends AppCompatActivity {
                                         startActivity(intent);
 
                                     } else {
-                                        Toast.makeText(RegisterActivity.this, "Can not create", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(RegisterActivity.this, "Cannot create", Toast.LENGTH_SHORT).show();
                                     }
                                 }else{
                                     Toast.makeText(RegisterActivity.this, "Username Exist", Toast.LENGTH_SHORT).show();
