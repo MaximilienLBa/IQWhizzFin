@@ -26,10 +26,11 @@ public class StartingScreenActivity extends AppCompatActivity {
     private TextView textViewHighscore;
     private Spinner spinnerCategory;
     private Spinner spinnerQuestionSet;
+    private Spinner spinnerFriend;
 
     private TextView textViewUtilsateur;
 
-    private User account;
+    public static User account;
 
     public static boolean rapidQuiz = false;
 
@@ -40,6 +41,7 @@ public class StartingScreenActivity extends AppCompatActivity {
 
         spinnerCategory = findViewById(R.id.spinner_category); // affichage du spinner
         spinnerQuestionSet = findViewById(R.id.spinner_question_set);
+        //spinnerFriend = findViewById(R.id.spinner_friends);
         textViewUtilsateur = findViewById(R.id.nom_utilisateur);
 
         String[] questionsSets = Question.getAllQuestionSet();
@@ -95,6 +97,7 @@ public class StartingScreenActivity extends AppCompatActivity {
                 startActivity(intent1);
             }
         });
+
 
 
     }

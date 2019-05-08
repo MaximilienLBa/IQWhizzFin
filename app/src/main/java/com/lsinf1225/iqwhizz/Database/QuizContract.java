@@ -37,5 +37,11 @@ public final class QuizContract {
         public static  String COLUMN_MAIL = "email";
         public static  String COLUMN_SCORE = "score";
     }
+
+    public static class FriendsTable implements BaseColumns{
+        public static String TABLE_NAME = "friends";
+        public static String FRIENDS_LOGIN = "friendslogin";
+        public static String FRIENDS = "friends";
+    }
 }
 

@@ -40,12 +40,12 @@ public class QuizActivity extends AppCompatActivity {
     private long timeLeftInMillis;
 
     private ArrayList<Question> questionList;
-    private int questionCounter;
-    private int questionCountTotal;
+    private static int questionCounter;
+    private static int questionCountTotal;
     private Question currentQuestion;
 
     private boolean answered;
-    public  int scoreDB;
+    public static int scoreDB;
     public static int scoreFinal;
 
     private long backPressedTime;
@@ -57,6 +57,13 @@ public class QuizActivity extends AppCompatActivity {
     private static final String KEY_MILLIS_LEFT = "keyMillisLeft";
     private static final String KEY_ANSWERED = "keyAnswered";
     private static final String KEY_QUESTION_LIST = "keyQuestionList";
+
+    //variables et méthodes pour le review
+    private static int totaltime;//rajout pour le reviewactivity
+    public static int getTotaltime() { return totaltime; }
+    public static int getScore(){ return scoreDB;}
+    public static int getQuestionCountTotal(){return questionCountTotal;}
+
 
 
     @Override
@@ -266,10 +273,15 @@ public class QuizActivity extends AppCompatActivity {
 
     //Permet de terminer le quizz
     private void finishQuiz(){
+        // lance la review
+        Intent ReviewIntent = new Intent (QuizActivity.this, ReviewActivity.class);
+        startActivity(ReviewIntent);
         scoreFinal = scoreDB;
         scoreDB = 0;
         finish();
     }
+
+
 
     //si jamais l'utilisateur veut quitter l'appli il devra cliquer deux fois, à la première fois
     // il aura un warning et aura quelque seconde pour ré-appuyer pour quitter

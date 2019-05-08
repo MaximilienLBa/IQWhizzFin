@@ -14,7 +14,9 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".QuizActivity" />
         <activity android:name=".StartingScreenActivity" />
+        <activity android:name=".ReviewActivity" />
         <activity android:name=".LoginActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
