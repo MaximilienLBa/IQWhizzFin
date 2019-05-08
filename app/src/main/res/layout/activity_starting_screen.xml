@@ -97,22 +97,12 @@
         android:layout_below="@+id/spinner_question_set"
         android:layout_marginLeft="5dp"
         android:backgroundTint="@android:color/white"
-        android:layout_marginTop="28dp"/>
-
-    <Spinner
-        android:id="@+id/spinner_friends"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/button_start_quiz"
-        android:layout_below="@+id/spinner_category"
-        android:layout_marginLeft="5dp"
-        android:backgroundTint="@android:color/white"
         android:layout_marginTop="28dp">
 
-
-
-
     </Spinner>
+
+
+
 
     <Button
         android:id="@+id/button_prof"
@@ -124,5 +114,7 @@
         android:layout_centerHorizontal="true"
         android:backgroundTint="@android:color/white"
         android:text="@string/afficher_modifier_profil" />
+
+
 
 </RelativeLayout>

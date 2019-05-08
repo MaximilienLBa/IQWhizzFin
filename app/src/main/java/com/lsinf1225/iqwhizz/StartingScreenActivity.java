@@ -26,7 +26,7 @@ public class StartingScreenActivity extends AppCompatActivity {
     private TextView textViewHighscore;
     private Spinner spinnerCategory;
     private Spinner spinnerQuestionSet;
-    private Spinner spinnerFriend;
+    //private Spinner spinnerFriend;
 
     private TextView textViewUtilsateur;
 
