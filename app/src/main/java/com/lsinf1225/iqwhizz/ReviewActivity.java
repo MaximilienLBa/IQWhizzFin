@@ -33,6 +33,7 @@ import java.util.Locale;
         private int questionnumber;
         private int qi;
         private int age;
+        private TextView imagename;
 
 
         @Override
@@ -45,6 +46,7 @@ import java.util.Locale;
             // BadAnswerNumber =  findViewById(R.id.text_view_bad);
             QI=findViewById(R.id.user_qi);
             image=findViewById(R.id.review_image);
+            imagename=findViewById(R.id.image_name);
             //lie les boutons xml à java pour pouvoir leurs donnés des actions
             Button rb = findViewById(R.id.Review_next_button);
 
@@ -55,6 +57,7 @@ import java.util.Locale;
             age=Integer.parseInt(StartingScreenActivity.account.getAge());
 
             //image.setImageResource(R.drawable.einstein);
+
 
 
             setqi();
@@ -81,20 +84,25 @@ import java.util.Locale;
 
         //Calcule le QI de l'utisateur sur ce questionnaire, manque l'age
         private void setqi() {
-            int l = (score/questionnumber)*100;
-            qi=l;
-            if(score>questionnumber/2){qi=125;}
-            if(l<70){qi=70;}
+            qi = (int) ((((double) score)/((double)questionnumber))*((double) 60)+((double) 70));
 
         }
 
         private void setImage(){
-            if(qi>120){ image.setImageResource(R.drawable.einstein); }
-            if(qi<90){ image.setImageResource(R.drawable.fluffy);}
-            if(qi>=90 && qi<=120){ image.setImageResource(R.drawable.charlie);}
+            if(qi>120){
+                image.setImageResource(R.drawable.einstein);
+                imagename.setText("Einstein");
+            }
+            if(qi<90){
+                image.setImageResource(R.drawable.fluffy);
+                imagename.setText("Fluffy");
+            }
+            if(qi>=90 && qi<=120){
+                image.setImageResource(R.drawable.charlie);
+                imagename.setText("Charlie");
+            }
 
         }
-
 
 
 
