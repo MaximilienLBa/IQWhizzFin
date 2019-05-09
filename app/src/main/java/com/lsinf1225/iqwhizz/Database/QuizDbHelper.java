@@ -79,6 +79,7 @@ public class QuizDbHelper extends SQLiteOpenHelper {
                 UserTable.COLUMN_SCORE  + " INTEGER " +
                 ")";
 
+
         final String SQL_CREATE_FRIENDS_TABLE = "CREATE TABLE " +
                 FriendsTable.TABLE_NAME + " ( " +
                 FriendsTable.FRIENDS_LOGIN1 + " TEXT, " +
