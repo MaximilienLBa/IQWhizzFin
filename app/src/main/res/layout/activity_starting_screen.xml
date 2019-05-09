@@ -150,4 +150,5 @@
         android:textSize="15sp"
         android:text="@string/log_out"/>
 
+
 </RelativeLayout>
