@@ -61,24 +61,32 @@
         android:layout_marginHorizontal="45dp"
         android:layout_marginTop="271dp"
         android:freezesText="true"
-        android:text="Votre QI:"
+        android:text="Your IQ:"
         android:textAlignment="center"
         android:textColor="@android:color/black"
         android:textSize="20sp" />
-
-
 
 
     <Button
         android:id="@+id/Review_next_button"
         android:layout_width="wrap_content"
         android:layout_height="54dp"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="461dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginBottom="22dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="10dp"
         android:text="Finish" />
+
+
+    <Button
+        android:id="@+id/Review_question_button"
+        android:layout_width="wrap_content"
+        android:layout_height="54dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginBottom="10dp"
+        android:text="Question Review" />
 
 
 </RelativeLayout>

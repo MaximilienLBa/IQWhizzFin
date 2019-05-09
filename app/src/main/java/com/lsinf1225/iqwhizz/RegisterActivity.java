@@ -42,7 +42,7 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                     else {
                         if (pwd.equals(cnf_pwd)){
-                            if(mail.contains("@") == false && mail.contains(".") == false){
+                            if(mail.contains("@") == false || mail.contains(".") == false){
                                 Toast.makeText(RegisterActivity.this, "Wrong email", Toast.LENGTH_SHORT).show();
                             }else{
                                 User temp = accountDB.checkUsername(editTextUsername.getText().toString());

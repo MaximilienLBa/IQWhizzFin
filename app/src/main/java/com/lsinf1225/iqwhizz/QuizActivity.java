@@ -65,6 +65,15 @@ public class QuizActivity extends AppCompatActivity {
     public static int getQuestionCountTotal(){return questionCountTotal;}
 
 
+    //variables et méthodes pour question review
+    public static ArrayList<String>  Qtab = new ArrayList<String>();//tableau des énoncés de questions
+    public static ArrayList<String>  Rtab = new ArrayList<String>();//tableau de la bonne réponse réponse de questions
+    public static ArrayList<String>  R_user_tab = new ArrayList<String>();//tableau des réponses du user
+    public static String getQtab( int i){ return Qtab.get(i);}
+    public static String getRtab( int i){ return Rtab.get(i);}
+    public static String getRUtab( int i){ return R_user_tab.get(i);}
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +109,8 @@ public class QuizActivity extends AppCompatActivity {
         textViewQuestionSet.setText(questionSet);
         textViewCategory.setText("Category: " + categoryName);
 
+
+
         if(savedInstanceState == null ){
             QuizDbHelper dbHelper = QuizDbHelper.getInstance(this);
 
@@ -121,10 +132,14 @@ public class QuizActivity extends AppCompatActivity {
             }else{
                 questionCountTotal = 40;
             }
+
+
             questionCounter = savedInstanceState.getInt(KEY_QUESTION_COUNT);
             currentQuestion = questionList.get(questionCounter -1);
             timeLeftInMillis = savedInstanceState.getLong(KEY_MILLIS_LEFT);
             answered = savedInstanceState.getBoolean(KEY_ANSWERED);
+
+
 
             if (!answered){
                 startCountDown();
@@ -133,6 +148,8 @@ public class QuizActivity extends AppCompatActivity {
                 showSolution();
             }
         }
+
+
 
         //Permet le passage à la question suivante
         buttonConfirmNext.setOnClickListener(new View.OnClickListener() {
@@ -165,6 +182,10 @@ public class QuizActivity extends AppCompatActivity {
             currentQuestion = questionList.get(questionCounter);
 
             textViewQuestion.setText(currentQuestion.getQuestion());
+
+            Qtab.add(currentQuestion.getQuestion());//ajoute la question à l'array pour la review
+
+
             rb1.setText(currentQuestion.getOption1());
             rb2.setText(currentQuestion.getOption2());
             rb3.setText(currentQuestion.getOption3());
@@ -230,6 +251,9 @@ public class QuizActivity extends AppCompatActivity {
         RadioButton rbSelected = findViewById(rbGroup.getCheckedRadioButtonId());
         int answerNr = rbGroup.indexOfChild(rbSelected) + 1;
 
+        R_user_tab.add(currentQuestion.getOption(answerNr));//prend la réponse du user
+        Rtab.add(currentQuestion.getAnswer());//ajoute la réponse string à la table rtab
+
         if (answerNr == currentQuestion.getAnswerNr()){
             scoreDB++;
             textViewScore.setText("Score: " + scoreDB);
@@ -278,11 +302,18 @@ public class QuizActivity extends AppCompatActivity {
         scoreFinal = scoreDB;
         scoreDB = 0;
         questionCounter=0;
+
+
         // lance la review
         Intent ReviewIntent = new Intent (QuizActivity.this, ReviewActivity.class);
         startActivity(ReviewIntent);
 
+
+
+
+
         finish();
+
     }
 
 

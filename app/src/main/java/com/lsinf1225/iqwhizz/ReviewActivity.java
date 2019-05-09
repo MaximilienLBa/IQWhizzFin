@@ -25,6 +25,7 @@ import java.util.Locale;
         private TextView GoodAnswerNumber;
         private TextView BadAnswerNumber;
         private RadioButton rb;
+        private RadioButton Qreview;
         private TextView QI;
         private ImageView image;
         private User user;
@@ -49,6 +50,7 @@ import java.util.Locale;
             imagename=findViewById(R.id.image_name);
             //lie les boutons xml à java pour pouvoir leurs donnés des actions
             Button rb = findViewById(R.id.Review_next_button);
+            Button Qreview = findViewById(R.id.Review_question_button);
 
 
             time=QuizActivity.getTotaltime();
@@ -67,8 +69,24 @@ import java.util.Locale;
             rb.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+                    QuizActivity.Rtab.clear();
+                    QuizActivity.R_user_tab.clear();
+                    QuizActivity.Qtab.clear();
+
                     score=0;
                     finish();
+                }
+
+            });
+
+            Qreview.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+
+                    Intent QreviewIntent = new Intent (ReviewActivity.this, QuestionReviewActivity.class);
+                    startActivity(QreviewIntent);
                 }
 
             });
@@ -103,11 +121,6 @@ import java.util.Locale;
             }
 
         }
-
-
-
-
-
     }
 
 
