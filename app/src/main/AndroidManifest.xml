@@ -9,17 +9,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ClassementAll"></activity>
+        <activity android:name=".FriendList"></activity>
+        <activity android:name=".ClassementAll" />
         <activity android:name=".Classement" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".QuizActivity" />
-        <activity android:name=".FriendActivity"/>
+        <activity android:name=".FriendActivity" />
         <activity android:name=".StartingScreenActivity" />
         <activity android:name=".ReviewActivity" />
         <activity android:name=".QuestionReviewActivity" />
         <activity android:name=".LoginActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.lsinf1225.iqwhizz.Database.QuizContract;
 import com.lsinf1225.iqwhizz.Database.QuizDbHelper;
 
 
@@ -21,7 +22,7 @@ public class StartingScreenActivity extends AppCompatActivity {
     public static final String EXTRA_CATEGORY_ID = "extraCategoryId";
     public static final String EXTRA_QUESTION_SET = "extraQuestionSet";
 
-    private TextView textViewHighscore;
+    private TextView mTextViewLogOut;
     private Spinner spinnerCategory;
     private Spinner spinnerQuestionSet;
     //private Spinner spinnerFriend;
@@ -96,8 +97,24 @@ public class StartingScreenActivity extends AppCompatActivity {
             }
         });
 
+        Button buttonFriend = findViewById(R.id.button_friends);
+        buttonFriend.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(StartingScreenActivity.this, FriendActivity.class);
+                intent.putExtra("account",account);
+                startActivity(intent);
+            }
+        });
 
-
+        mTextViewLogOut = (TextView) findViewById(R.id.textview_logout);
+        mTextViewLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent LoginIntent = new Intent(StartingScreenActivity.this, LoginActivity.class);
+                startActivity(LoginIntent);
+            }
+        });
     }
 
     //Lancement du quizz en fonction des catégories

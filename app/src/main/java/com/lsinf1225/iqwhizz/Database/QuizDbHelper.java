@@ -1,11 +1,13 @@
 package com.lsinf1225.iqwhizz.Database;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.lsinf1225.iqwhizz.Category;
+import com.lsinf1225.iqwhizz.FriendList;
 import com.lsinf1225.iqwhizz.User;
 import com.lsinf1225.iqwhizz.Question;
 import com.lsinf1225.iqwhizz.Database.QuizContract.*;
@@ -132,21 +134,6 @@ public class QuizDbHelper extends SQLiteOpenHelper {
         }
     }
 
-    public void addFriends(User user){
-        db = getWritableDatabase();
-        insertFriend(user);
-    }
-
-    private void insertFriend(User user)
-    {
-        ContentValues cv = new ContentValues();
-        cv.put(FriendsTable.FRIENDS_LOGIN2,user.getLogin());
-        //cv.put(FriendsTable.FRIENDS_LOGIN1,this.user.getLogin())
-        //cv.put(FriendsTable.COLUMN_ID,user.getIdask());
-        db.insert(FriendsTable.TABLE_NAME,null,cv);
-
-    }
-
     //ajoute directement la catégorie à la table en faisant appel à insertCategory
     public void addCategory (Category category){
         db = getWritableDatabase();
@@ -241,66 +228,54 @@ public class QuizDbHelper extends SQLiteOpenHelper {
         return categoryList;
     }
 
-    public ArrayList<User> getAllFriends(){
-        ArrayList<User> Friends = new ArrayList<>();
-        User user = new User();
+    public ArrayList<String> getAllFriends(){
+        ArrayList<String> friendList = new ArrayList<>();
         db = getReadableDatabase();
-        //Cursor c = db.query("SELECT user1,user2 FROM " + FriendsTable.TABLE_NAME + " WHERE FriendsTable.FRIENDS_LOGIN1=user.getLogin() OR FriendsTable.FRIENDS_LOGIN2=user.getLogin()", null,null,null);
-        //String selection = FriendsTable.FRIENDS_LOGIN1 + " = ? " + " and " + FriendsTable.FRIENDS_LOGIN2 + " = ? ";
-        //String[] selectionArgs = new String[]{,String.valueOf(categoryID)};
+        Cursor c = db.rawQuery("SELECT * FROM " + FriendsTable.TABLE_NAME,null);
+        if (c.moveToFirst()) {
+            do {
+                friendList.add(c.getString(c.getColumnIndex(FriendsTable.FRIENDS_LOGIN2)));
+            }while (c.moveToNext());
+        }
+        return friendList;
+    }
 
+    public boolean checkFriendYS(String currentUser,String userFriend){
+        db = getReadableDatabase();
+        String selection = FriendsTable.FRIENDS_LOGIN1 + " = ? " + " and " + FriendsTable.FRIENDS_LOGIN1 + " = ? ";
+        String[] selectionArgs = new String[]{currentUser,userFriend};
         Cursor c = db.query(
                 FriendsTable.TABLE_NAME,
                 null,
-                 null,
-                null,
+                selection,
+                selectionArgs,
                 null,
                 null,
                 null
         );
         if (c.moveToFirst()) {
-            do {
-                //user.setFriend(c.getString(c.getColumnIndex(FriendsTable.FRIENDS)));
-                if(FriendsTable.FRIENDS_LOGIN1==user.getLogin()){
-                    user.setFriend(FriendsTable.FRIENDS_LOGIN1);
-                    Friends.add(user);
-                }
-                else {
-                    user.setFriend(FriendsTable.FRIENDS_LOGIN2);
-                    Friends.add(user);
-                }
-            }while (c.moveToNext());
+            return true;
         }
-        c.close();
-        return Friends;
+        return false;
     }
 
-
-
-    //Methode qui permet de renvoyer une liste de tout les objets question présente dans la table
-    public ArrayList<Question> getAllQuestions() {
-        ArrayList<Question> questionList = new ArrayList<>();
+    public boolean checkFriend(String currentUser,String userFriend){
         db = getReadableDatabase();
-        Cursor c = db.rawQuery("SELECT * FROM " + QuestionsTable.TABLE_NAME, null);
-
+        String selection = FriendsTable.FRIENDS_LOGIN1 + " = ? " + " and " + FriendsTable.FRIENDS_LOGIN2 + " = ? ";
+        String[] selectionArgs = new String[]{currentUser,userFriend};
+        Cursor c = db.query(
+                FriendsTable.TABLE_NAME,
+                null,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null
+        );
         if (c.moveToFirst()) {
-            do {
-                Question question = new Question();
-                question.setId(c.getInt(c.getColumnIndex(QuestionsTable._ID)));
-                question.setQuestion(c.getString(c.getColumnIndex(QuestionsTable.COLUMN_QUESTION)));
-                question.setOption1(c.getString(c.getColumnIndex(QuestionsTable.COLUMN_OPTION1)));
-                question.setOption2(c.getString(c.getColumnIndex(QuestionsTable.COLUMN_OPTION2)));
-                question.setOption3(c.getString(c.getColumnIndex(QuestionsTable.COLUMN_OPTION3)));
-                question.setOption4(c.getString(c.getColumnIndex(QuestionsTable.COLUMN_OPTION4)));
-                question.setAnswerNr(c.getInt(c.getColumnIndex(QuestionsTable.COLUMN_ANSWER_NR)));
-                question.setQuestionSet(c.getString(c.getColumnIndex(QuestionsTable.COLUMN_QUESTIONSET)));
-                question.setCategoryID(c.getInt(c.getColumnIndex(QuestionsTable.COLUMN_CATEGORY_ID)));
-                questionList.add(question);
-            } while (c.moveToNext());
+            return true;
         }
-
-        c.close();
-        return questionList;
+        return false;
     }
 
     //permet d'avoir la question + sa catégorie
@@ -359,6 +334,14 @@ public class QuizDbHelper extends SQLiteOpenHelper {
             result = false;
         }
         return result;
+    }
+
+    public void createFriend(String account, String currentAccount){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(FriendsTable.FRIENDS_LOGIN1,currentAccount);
+        contentValues.put(FriendsTable.FRIENDS_LOGIN2,account);
+        db.insert(FriendsTable.TABLE_NAME,null,contentValues);
     }
 
     public boolean update(User account){
