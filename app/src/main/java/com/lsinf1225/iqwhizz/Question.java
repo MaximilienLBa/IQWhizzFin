@@ -15,7 +15,7 @@ public class Question implements Parcelable {
     public static String option2;
     public static String option3;
     public static String option4;
-    private static int answerNr;
+    private int answerNr;
     private String questionSet;
     private int categoryID;
     private int id;
