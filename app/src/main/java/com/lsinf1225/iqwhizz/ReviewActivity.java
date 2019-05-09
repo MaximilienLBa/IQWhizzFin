@@ -22,20 +22,12 @@ import java.util.Collections;
 import java.util.Locale;
 
     public class ReviewActivity extends AppCompatActivity {
-        private TextView GoodAnswerNumber;
-        private TextView BadAnswerNumber;
-        private RadioButton rb;
-        private RadioButton Qreview;
+
         private TextView QI;
         private ImageView image;
-        private User user;
         private  int  score;
-        private int time;
-        private int questionnumber;
         private int qi;
-        private int age;
         private TextView imagename;
-
 
         @Override
         protected void onCreate(Bundle savedInstanceState){
@@ -51,16 +43,7 @@ import java.util.Locale;
             //lie les boutons xml à java pour pouvoir leurs donnés des actions
             Button rb = findViewById(R.id.Review_next_button);
             Button Qreview = findViewById(R.id.Review_question_button);
-
-
-            time=QuizActivity.getTotaltime();
             score=QuizActivity.getScore();
-            questionnumber=QuizActivity.getQuestionCountTotal();
-            age=Integer.parseInt(StartingScreenActivity.account.getAge());
-
-
-
-
 
             setqi();
             QI.setText(Integer.toString(qi));
@@ -84,25 +67,16 @@ import java.util.Locale;
                 @Override
                 public void onClick(View v) {
 
-
                     Intent QreviewIntent = new Intent (ReviewActivity.this, QuestionReviewActivity.class);
                     startActivity(QreviewIntent);
                 }
 
             });
-
-
-
-
-
         }
-
-
-
 
         //Calcule le QI de l'utisateur sur ce questionnaire, manque l'age
         private void setqi() {
-            qi = (int) ((((double) score)/((double)questionnumber))*((double) 60)+((double) 70));
+            qi = (score*2) +60;
         }
 
         private void setImage(){

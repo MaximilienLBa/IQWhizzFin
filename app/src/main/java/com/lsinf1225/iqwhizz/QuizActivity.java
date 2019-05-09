@@ -252,7 +252,10 @@ public class QuizActivity extends AppCompatActivity {
         Rtab.add(currentQuestion.getAnswer());//ajoute la réponse string à la table rtab
 
         if (answerNr == currentQuestion.getAnswerNr()){
-            scoreDB++;
+            if (StartingScreenActivity.rapidQuiz = false)
+                scoreDB++;
+            else
+                scoreDB=scoreDB+8;
         }
     }
 

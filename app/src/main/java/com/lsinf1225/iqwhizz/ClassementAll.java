@@ -43,7 +43,7 @@ public class ClassementAll extends AppCompatActivity {
                 username= username+" ";
             }
             String leaderboard = count + "                               "
-                    + username +"                    " + user.getScore() ;
+                    + username +"                  " + ((user.getScore()*2)+60) ;
             count++;
             userTable.add(leaderboard);
         }

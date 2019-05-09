@@ -61,6 +61,8 @@ public class Classement extends AppCompatActivity {
         QuizDbHelper db = new QuizDbHelper(this);
         List <User> users = db.getUser();
         int count = 1;
+
+
         String leaderboard ="";
         for (User user : users){
             if (count == 11){
@@ -70,14 +72,16 @@ public class Classement extends AppCompatActivity {
            for (int i = username.length(); i <10;i++){
                    username= username+" ";
            }
+
+
            if (count <=9){
-                leaderboard = "  "+ count + "                               "
-                       + username +"      " + user.getScore() ;
+                leaderboard = "  "+ count + "                                 "
+                       + username +"              " + ((user.getScore()*2)+60) ;
                 count++;
            }
            else{
-               leaderboard = count + "                               "
-                       + username +"      " + user.getScore();
+               leaderboard = count + "                                    "
+                       + username +"                                   " + ((user.getScore()*2)+60);
                count++;
            }
            userTable.add(leaderboard);
