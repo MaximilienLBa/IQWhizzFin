@@ -9,6 +9,8 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.lsinf1225.iqwhizz.Database.QuizDbHelper;
+import com.lsinf1225.iqwhizz.R;
+import com.lsinf1225.iqwhizz.User;
 
 import java.util.ArrayList;
 import java.util.List;

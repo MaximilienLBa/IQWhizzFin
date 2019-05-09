@@ -1,8 +1,6 @@
 package com.lsinf1225.iqwhizz;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,10 +13,6 @@ import com.lsinf1225.iqwhizz.Database.QuizDbHelper;
 
 
 import java.util.List;
-import java.lang.Object;
-import java.lang.String;
-import java.util.Arrays;
-import java.util.ArrayList;
 
 public class StartingScreenActivity extends AppCompatActivity {
 
@@ -26,19 +20,17 @@ public class StartingScreenActivity extends AppCompatActivity {
     public static final String EXTRA_CATEGORY_NAME = "extraCategoryName";
     public static final String EXTRA_CATEGORY_ID = "extraCategoryId";
     public static final String EXTRA_QUESTION_SET = "extraQuestionSet";
-    public static final String EXTRA_FRIENDS_LOGIN = "extraFriends";
 
     private TextView textViewHighscore;
     private Spinner spinnerCategory;
     private Spinner spinnerQuestionSet;
-    private Spinner spinnerFriend;
+    //private Spinner spinnerFriend;
 
     private TextView textViewUtilsateur;
 
     public static User account;
 
     public static boolean rapidQuiz = false;
-    public static boolean Duel = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,13 +41,6 @@ public class StartingScreenActivity extends AppCompatActivity {
         spinnerQuestionSet = findViewById(R.id.spinner_question_set);
         //spinnerFriend = findViewById(R.id.spinner_friends);
         textViewUtilsateur = findViewById(R.id.nom_utilisateur);
-
-
-        //String[] Friends = User.getAmis();
-        //ArrayAdapter<String> adapterfriends =  new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,Friends);
-        //adapterfriends.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //spinnerFriend.setAdapter(adapterfriends);
-
 
         String[] questionsSets = Question.getAllQuestionSet();
         ArrayAdapter<String> adapterQuestionSet = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,questionsSets);
@@ -80,15 +65,6 @@ public class StartingScreenActivity extends AppCompatActivity {
                 intent.putExtra("account", currentAccount);
                 startActivity(intent);
 
-            }
-        });
-
-        Button friends = findViewById(R.id.button_friends);
-        friends.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(StartingScreenActivity.this, FriendActivity.class);
-                startActivity(intent);
             }
         });
 
@@ -137,26 +113,9 @@ public class StartingScreenActivity extends AppCompatActivity {
         intent.putExtra(EXTRA_QUESTION_SET, questionSet);
         intent.putExtra(EXTRA_CATEGORY_ID,categoryID);
         intent.putExtra(EXTRA_CATEGORY_NAME,categoryName);
-
-
-        if(Duel==true)
-        {
-            String friends = (String) spinnerFriend.getSelectedItem();
-            intent.putExtra(EXTRA_FRIENDS_LOGIN,friends);
-        }
         startActivityForResult(intent,REQUEST_CODE_QUIZZ);
     }
 
-
-    private void loadFriends(){
-        QuizDbHelper dbHelper = QuizDbHelper.getInstance(this);
-        List<User>  friends = dbHelper.getAllFriends();
-
-        ArrayAdapter<User> adapterFriends = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, friends);
-        adapterFriends.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerFriend.setAdapter(adapterFriends);
-    }
 
     private void loadCategories() {
         QuizDbHelper dbHelper = QuizDbHelper.getInstance(this);

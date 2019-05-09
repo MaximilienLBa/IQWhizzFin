@@ -38,9 +38,4 @@ public class Duel {
     public int getId2() {
         return id2;
     }
-
-
-
-
-
 }

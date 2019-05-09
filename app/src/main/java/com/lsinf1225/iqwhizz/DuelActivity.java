@@ -58,7 +58,6 @@ public class DuelActivity extends AppCompatActivity{
         int categoryID = selectedCategory.getId();
         String categoryName = selectedCategory.getName();
 
-
         Intent intent = new Intent(DuelActivity.this, QuizActivity.class);
         intent.putExtra(EXTRA_QUESTION_SET, questionSet);
         intent.putExtra(EXTRA_CATEGORY_ID,categoryID);

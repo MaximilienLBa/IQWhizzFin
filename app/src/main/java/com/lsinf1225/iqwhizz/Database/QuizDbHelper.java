@@ -81,9 +81,8 @@ public class QuizDbHelper extends SQLiteOpenHelper {
 
         final String SQL_CREATE_FRIENDS_TABLE = "CREATE TABLE " +
                 FriendsTable.TABLE_NAME + " ( " +
-                FriendsTable.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 FriendsTable.FRIENDS_LOGIN1 + " TEXT, " +
-                FriendsTable.FRIENDS_LOGIN2 + "TEXT" +
+                FriendsTable.FRIENDS_LOGIN2 + " TEXT " +
                 ")";
 
 

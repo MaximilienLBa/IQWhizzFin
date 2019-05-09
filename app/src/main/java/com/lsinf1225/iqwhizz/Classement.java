@@ -8,14 +8,16 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+
 import com.lsinf1225.iqwhizz.Database.QuizDbHelper;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Classement extends AppCompatActivity {
     private User account;
     private ListView mListView;
-    private static int highscore;
+    private int highscore;
     private Button buttonClassement;
 
     ArrayList <String> userTable = new ArrayList<String>();
@@ -48,6 +50,7 @@ public class Classement extends AppCompatActivity {
         Intent intent = getIntent();
         account = (User) intent.getSerializableExtra("account");
         QuizDbHelper db = new QuizDbHelper(this);
+        highscore = db.getScoreDB(account.getUsername());
         if(account.getScore()>= highscore) {
             db.update(account);
             highscore = account.getScore();
