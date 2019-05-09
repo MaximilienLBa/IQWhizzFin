@@ -36,7 +36,6 @@ public class ClassementAll extends AppCompatActivity {
     private void loadClassementAll() {
         QuizDbHelper db = new QuizDbHelper(this);
         List<User> users = db.getUser();
-        int questionNumber = QuizActivity.getQuestionCountTotal();
         int count = 1;
         for (User user : users){
             String username = user.getUsername();
@@ -44,7 +43,7 @@ public class ClassementAll extends AppCompatActivity {
                 username= username+" ";
             }
             String leaderboard = count + "                               "
-                    + username +"                " + (int) ((((double)  user.getScore())/((double)questionNumber))*((double) 60)+((double) 70)) ;
+                    + username +"                    " + user.getScore() ;
             count++;
             userTable.add(leaderboard);
         }
@@ -58,6 +57,7 @@ public class ClassementAll extends AppCompatActivity {
         Intent intent = getIntent();
         account = (User) intent.getSerializableExtra("account");
         QuizDbHelper db = new QuizDbHelper(this);
+        highscore = db.getScoreDB(account.getUsername());
         if(account.getScore()>= highscore) {
             db.update(account);
             highscore = account.getScore();

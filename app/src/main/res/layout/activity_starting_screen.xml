@@ -19,6 +19,22 @@
         android:text="IQWhizz"
         android:textColor="@android:color/white"
         android:textSize="35sp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:text="Choisissez un set de questions et une catégorie"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="120dp"
+        android:text="pour lancer votre quiz et connaitre votre QI"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
 
 
     <TextView
