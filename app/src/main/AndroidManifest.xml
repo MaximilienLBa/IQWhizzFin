@@ -16,6 +16,7 @@
         <activity android:name=".QuizActivity" />
         <activity android:name=".StartingScreenActivity" />
         <activity android:name=".ReviewActivity" />
+        <activity android:name=".QuestionReviewActivity" />
         <activity android:name=".LoginActivity">
 
             <intent-filter>

@@ -11,11 +11,11 @@ public class Question implements Parcelable {
     //Initialisation des variables réponses, la question, la catégorie et son id ainsi que le numéro
     //correspondant à la bonne réponse
     private String question;
-    private String option1;
-    private String option2;
-    private String option3;
-    private String option4;
-    private int answerNr;
+    public static String option1;
+    public static String option2;
+    public static String option3;
+    public static String option4;
+    private static int answerNr;
     private String questionSet;
     private int categoryID;
     private int id;
@@ -153,6 +153,21 @@ public class Question implements Parcelable {
     }
     public static String[] getAllQuestionSet(){
         return new String[] {QUESTION_SET_1, QUESTION_SET_2, QUESTION_SET_3 };
+    }
+    public  String getAnswer(){
+        if (this.answerNr==1){ return this.option1;}
+        if (this.answerNr==2){ return this.option2;}
+        if (this.answerNr==3){ return this.option3;}
+        if (this.answerNr==4){ return this.option4;}
+        return "error";
+    }
+
+    public  String getOption(int i){
+        if (i==1){ return this.option1;}
+        if (i==2){ return this.option2;}
+        if (i==3){ return this.option3;}
+        if (i==4){ return this.option4;}
+        return "error";
     }
 }
 
