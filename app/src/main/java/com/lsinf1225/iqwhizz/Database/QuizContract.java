@@ -40,8 +40,9 @@ public final class QuizContract {
 
     public static class FriendsTable implements BaseColumns{
         public static String TABLE_NAME = "friends";
-        public static String FRIENDS_LOGIN = "friendslogin";
-        public static String FRIENDS = "friends";
+        public static String COLUMN_ID = "ID";
+        public static String FRIENDS_LOGIN1 = "friendslogin1";
+        public static String FRIENDS_LOGIN2 = "friendslogin2";
     }
 }
 

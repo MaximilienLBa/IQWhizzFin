@@ -6,12 +6,19 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.lsinf1225.iqwhizz.Category;
+import com.lsinf1225.iqwhizz.User;
 import com.lsinf1225.iqwhizz.Question;
 import com.lsinf1225.iqwhizz.Database.QuizContract.*;
 import com.lsinf1225.iqwhizz.User;
 
+import java.lang.annotation.AnnotationTypeMismatchException;
 import java.util.ArrayList;
 import java.util.List;
+import java.lang.Object;
+import java.lang.String;
+import java.util.Arrays;
+import java.lang.Class;
+
 
 
 public class QuizDbHelper extends SQLiteOpenHelper {
@@ -34,6 +41,7 @@ public class QuizDbHelper extends SQLiteOpenHelper {
         return instance;
     }
 
+    //public ArrayList<Integer> Amis = User.getAmis();
 
     //endroit ou la database est créée
     @Override
@@ -71,14 +79,15 @@ public class QuizDbHelper extends SQLiteOpenHelper {
                 UserTable.COLUMN_SCORE  + " INTEGER " +
                 ")";
 
-        final String SQL_CREATE_FRIENDS_TABLE = "CREATE TABLE" +
-                FriendsTable.TABLE_NAME + "(" +
-                FriendsTable.FRIENDS_LOGIN + "TEXT" +
-                FriendsTable.FRIENDS + "TEXT" +
+        final String SQL_CREATE_FRIENDS_TABLE = "CREATE TABLE " +
+                FriendsTable.TABLE_NAME + " ( " +
+                FriendsTable.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                FriendsTable.FRIENDS_LOGIN1 + " TEXT, " +
+                FriendsTable.FRIENDS_LOGIN2 + "TEXT" +
                 ")";
 
 
-
+        db.execSQL(SQL_CREATE_FRIENDS_TABLE);
         db.execSQL(SQL_CREATE_USER_TABLE);
         db.execSQL(SQL_CREATE_CATEGORIES_TABLE);
         db.execSQL(SQL_CREATE_QUESTIONS_TABLE);
@@ -94,6 +103,7 @@ public class QuizDbHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + CategoriesTable.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + QuestionsTable.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + UserTable.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + FriendsTable.TABLE_NAME);
         onCreate(db);
     }
 
@@ -113,6 +123,28 @@ public class QuizDbHelper extends SQLiteOpenHelper {
         insertCategory(c2);
         Category c3 = new Category("Math");
         insertCategory(c3);
+    }
+
+    private void fillFriendsTable(){
+        for(int i = 0;i<User.getAmis().length;i++)
+        {
+            i++;
+        }
+    }
+
+    public void addFriends(User user){
+        db = getWritableDatabase();
+        insertFriend(user);
+    }
+
+    private void insertFriend(User user)
+    {
+        ContentValues cv = new ContentValues();
+        cv.put(FriendsTable.FRIENDS_LOGIN2,user.getLogin());
+        //cv.put(FriendsTable.FRIENDS_LOGIN1,this.user.getLogin())
+        //cv.put(FriendsTable.COLUMN_ID,user.getIdask());
+        db.insert(FriendsTable.TABLE_NAME,null,cv);
+
     }
 
     //ajoute directement la catégorie à la table en faisant appel à insertCategory
@@ -208,6 +240,42 @@ public class QuizDbHelper extends SQLiteOpenHelper {
         c.close();
         return categoryList;
     }
+
+    public ArrayList<User> getAllFriends(){
+        ArrayList<User> Friends = new ArrayList<>();
+        User user = new User();
+        db = getReadableDatabase();
+        //Cursor c = db.query("SELECT user1,user2 FROM " + FriendsTable.TABLE_NAME + " WHERE FriendsTable.FRIENDS_LOGIN1=user.getLogin() OR FriendsTable.FRIENDS_LOGIN2=user.getLogin()", null,null,null);
+        //String selection = FriendsTable.FRIENDS_LOGIN1 + " = ? " + " and " + FriendsTable.FRIENDS_LOGIN2 + " = ? ";
+        //String[] selectionArgs = new String[]{,String.valueOf(categoryID)};
+
+        Cursor c = db.query(
+                FriendsTable.TABLE_NAME,
+                null,
+                 null,
+                null,
+                null,
+                null,
+                null
+        );
+        if (c.moveToFirst()) {
+            do {
+                //user.setFriend(c.getString(c.getColumnIndex(FriendsTable.FRIENDS)));
+                if(FriendsTable.FRIENDS_LOGIN1==user.getLogin()){
+                    user.setFriend(FriendsTable.FRIENDS_LOGIN1);
+                    Friends.add(user);
+                }
+                else {
+                    user.setFriend(FriendsTable.FRIENDS_LOGIN2);
+                    Friends.add(user);
+                }
+            }while (c.moveToNext());
+        }
+        c.close();
+        return Friends;
+    }
+
+
 
     //Methode qui permet de renvoyer une liste de tout les objets question présente dans la table
     public ArrayList<Question> getAllQuestions() {

@@ -13,14 +13,19 @@ public class User implements Serializable {
     private String mail;
     private String username;
     public int score;
+    private int numAmis = 0;
 
     private boolean demande;
     private int idask;
+    private String loginAsk;
+    private String friend;
 
 
     //petite arraylist pour ajouter facilement et simplement des amis
     //j'ai mis les id ça me paraissait mieux même si dans le rapport ça dit des strings
-    private ArrayList<Integer>  amis = new ArrayList<Integer>();
+
+
+    private static String[] amis = new String[10];
 
     public User (){
 
@@ -42,8 +47,17 @@ public class User implements Serializable {
 
     //assez simple à faire
     public void addFriendUser(User a){
-        if((this.demande==true)&&(a.id==this.idask)) {
-            this.amis.add(a.id);
+        if((this.demande==true)&&(a.id==this.idask)&&(a.login==this.loginAsk)) {
+            if(this.numAmis>amis.length)
+            {
+                amis = new String[amis.length+1];
+            }
+            int j = 0;
+            while(j<this.amis.length)
+            {
+                j++;
+            }
+            this.amis[j]=(a.login);
         }
     }
 
@@ -51,19 +65,19 @@ public class User implements Serializable {
     public boolean removeFriendUser(User a){
         int i=0;
         //si la liste est vide
-        if (i > this.amis.size()-1){return false;}
+        if (i > this.amis.length-1){return false;}
 
-        while(this.amis.get(i)!=a.id){
+        while(this.amis[i]!=a.login){
             i++;
 
             //si on dépasse la liste
-            if (i > this.amis.size()-1){return false;}
+            if (i > this.amis.length-1){return false;}
         }
-        this.amis.remove(i);
+        this.amis[i]=null;
         return true;
     }
 
-    public ArrayList<Integer> getAmis() { return amis; }
+    public static String[] getAmis() { return amis; }
 
     public String getAge() { return age; }
 
@@ -104,5 +118,27 @@ public class User implements Serializable {
     public  void setScore(int score) {
         this.score = score;
     }
+
+    public void setLoginAsk(String loginAmi){
+        this.loginAsk=loginAsk;
+    }
+
+    public String getLoginAsk()
+    {
+        return loginAsk;
+    }
+
+    public String getFriend(){
+        return friend;
+    }
+
+    public void setFriend(String friend){
+        this.friend=friend;
+    }
+
+    public void setIdask(int idask) { this.idask=idask;}
+
+    public int getIdask() {return idask;}
+
 }
 
