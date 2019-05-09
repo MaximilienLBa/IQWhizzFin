@@ -240,6 +240,12 @@ public class QuizDbHelper extends SQLiteOpenHelper {
         return friendList;
     }
 
+    public void deleteName(String name){
+        db = getWritableDatabase();
+        String query = "DELETE FROM " + FriendsTable.TABLE_NAME + " WHERE "
+                 + FriendsTable.FRIENDS_LOGIN2 + " = '" + name + "'";
+        db.execSQL(query);
+    }
     public boolean checkFriendYS(String currentUser,String userFriend){
         db = getReadableDatabase();
         String selection = FriendsTable.FRIENDS_LOGIN1 + " = ? " + " and " + FriendsTable.FRIENDS_LOGIN1 + " = ? ";

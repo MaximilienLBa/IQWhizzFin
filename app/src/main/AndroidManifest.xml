@@ -16,6 +16,7 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".QuizActivity" />
         <activity android:name=".FriendActivity" />
+        <activity android:name=".DuelActivity"/>
         <activity android:name=".StartingScreenActivity" />
         <activity android:name=".ReviewActivity" />
         <activity android:name=".QuestionReviewActivity" />

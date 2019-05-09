@@ -42,4 +42,5 @@
         android:backgroundTint="@android:color/white"
         android:text="Score User2" /> <!-- mettre le login de l'utilisateur2 -->
 
+
 </RelativeLayout>

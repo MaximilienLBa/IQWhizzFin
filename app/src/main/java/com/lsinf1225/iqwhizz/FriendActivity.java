@@ -2,7 +2,9 @@ package com.lsinf1225.iqwhizz;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.os.strictmode.SqliteObjectLeakedViolation;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -81,6 +83,23 @@ public class FriendActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+        Button buttonDelete = findViewById(R.id.button_remove);
+        buttonDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                QuizDbHelper accountDB = new QuizDbHelper(getApplicationContext());
+                String friend = editTextFriend.getText().toString().trim();
+                if (friend.equals("") ) {
+                    Toast.makeText(FriendActivity.this, "field empty", Toast.LENGTH_SHORT).show();
+                }
+                if (alreadyFriend(friend)) {
+                    accountDB.deleteName(friend);
+                    Toast.makeText(FriendActivity.this, "Succes", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     private void insertFriend(String user2)
@@ -106,4 +125,5 @@ public class FriendActivity extends AppCompatActivity {
 
         return db.checkFriendYS(account.getUsername(), user2);
     }
+
 }

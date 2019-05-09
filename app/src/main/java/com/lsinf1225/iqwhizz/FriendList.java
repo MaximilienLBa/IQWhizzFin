@@ -1,7 +1,10 @@
 package com.lsinf1225.iqwhizz;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -21,6 +24,14 @@ public class FriendList extends AppCompatActivity {
         mListView = findViewById(R.id.listView_friendList);
 
         loadFriends();
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent duelScreen = new Intent(FriendList.this,DuelActivity.class);
+                startActivity(duelScreen);
+            }
+        });
     }
 
     private void loadFriends(){

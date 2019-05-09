@@ -25,7 +25,6 @@ public class StartingScreenActivity extends AppCompatActivity {
     private TextView mTextViewLogOut;
     private Spinner spinnerCategory;
     private Spinner spinnerQuestionSet;
-    //private Spinner spinnerFriend;
 
     private TextView textViewUtilsateur;
 
