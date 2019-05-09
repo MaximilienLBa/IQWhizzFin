@@ -91,12 +91,17 @@ public class FriendActivity extends AppCompatActivity {
             public void onClick(View v) {
                 QuizDbHelper accountDB = new QuizDbHelper(getApplicationContext());
                 String friend = editTextFriend.getText().toString().trim();
-                if (friend.equals("") ) {
+                if (friend.equals("")) {
                     Toast.makeText(FriendActivity.this, "field empty", Toast.LENGTH_SHORT).show();
                 }
-                if (alreadyFriend(friend)) {
-                    accountDB.deleteName(friend);
-                    Toast.makeText(FriendActivity.this, "Succes", Toast.LENGTH_SHORT).show();
+                else{
+                    if (alreadyFriend(friend)) {
+                        accountDB.deleteName(friend);
+                        Toast.makeText(FriendActivity.this, "Succes", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(FriendActivity.this, "Username isn't you friend or doesn't exist", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
