@@ -21,7 +21,6 @@ import java.util.Locale;
 
 public class QuizActivity extends AppCompatActivity {
     private TextView textViewQuestion;
-    private TextView textViewScore;
     private TextView textViewQuestionCount;
     private TextView textViewCategory;
     private TextView textViewQuestionSet;
@@ -50,9 +49,8 @@ public class QuizActivity extends AppCompatActivity {
 
     private long backPressedTime;
 
-    private static final long COUNTDOWN_IN_MILLIS = 30000;
+    private static final long COUNTDOWN_IN_MILLIS = 60000;
 
-    private static final String KEY_SCORE = "keyScore";
     private static final String KEY_QUESTION_COUNT = "keyQuestionCount";
     private static final String KEY_MILLIS_LEFT = "keyMillisLeft";
     private static final String KEY_ANSWERED = "keyAnswered";
@@ -82,7 +80,6 @@ public class QuizActivity extends AppCompatActivity {
 
         //lie les textView xml à java
         textViewQuestion = findViewById(R.id.text_view_question);
-        textViewScore = findViewById(R.id.text_view_score);
         textViewQuestionCount = findViewById(R.id.text_view_question_count);
         textViewQuestionSet = findViewById(R.id.text_view_question_set);
         textViewCategory = findViewById(R.id.text_view_category);
@@ -145,7 +142,6 @@ public class QuizActivity extends AppCompatActivity {
                 startCountDown();
             }else{
                 updateCountDownText();
-                showSolution();
             }
         }
 
@@ -158,6 +154,7 @@ public class QuizActivity extends AppCompatActivity {
                 if(!answered){
                     if(rb1.isChecked() || rb2.isChecked() || rb3.isChecked() || rb4.isChecked()){
                         checkAnswer();
+                        showNextQuestion();
                     }else {
                         Toast.makeText(QuizActivity.this, "Please select an answer", Toast.LENGTH_SHORT).show();
                     }
@@ -256,45 +253,9 @@ public class QuizActivity extends AppCompatActivity {
 
         if (answerNr == currentQuestion.getAnswerNr()){
             scoreDB++;
-            textViewScore.setText("Score: " + scoreDB);
-        }
-
-        showSolution();
-    }
-
-    //Permet l'affichage des solutions, en rouge les réponses fausse, en vert les correct
-    private void showSolution(){
-        rb1.setTextColor(Color.RED);
-        rb2.setTextColor(Color.RED);
-        rb3.setTextColor(Color.RED);
-        rb4.setTextColor(Color.RED);
-
-
-        switch (currentQuestion.getAnswerNr()) {
-            case 1:
-                rb1.setTextColor((Color.GREEN));
-                textViewQuestion.setText("Answer 1 is correct");
-                break;
-            case 2:
-                rb2.setTextColor((Color.GREEN));
-                textViewQuestion.setText("Answer 2 is correct");
-                break;
-            case 3:
-                rb3.setTextColor((Color.GREEN));
-                textViewQuestion.setText("Answer 3 is correct");
-                break;
-            case 4:
-                rb4.setTextColor((Color.GREEN));
-                textViewQuestion.setText("Answer 4 is correct");
-                break;
-        }
-        if (questionCounter < questionCountTotal){
-            buttonConfirmNext.setText("Next");
-        }
-        else{
-            buttonConfirmNext.setText("Finish");
         }
     }
+
 
     //Permet de terminer le quizz
     private void finishQuiz(){
@@ -307,11 +268,6 @@ public class QuizActivity extends AppCompatActivity {
         // lance la review
         Intent ReviewIntent = new Intent (QuizActivity.this, ReviewActivity.class);
         startActivity(ReviewIntent);
-
-
-
-
-
         finish();
 
     }

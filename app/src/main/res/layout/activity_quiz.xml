@@ -8,20 +8,13 @@
     tools:context=".QuizActivity">
 
     <!-- Affichage du score en temps réel -->
-    <TextView
-        android:id="@+id/text_view_score"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Score: 0"
-        android:textColor="@android:color/black"
-        android:freezesText="true"/>
+
 
     <!-- Affichage du nombre de question restante-->
     <TextView
         android:id="@+id/text_view_question_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/text_view_score"
         android:text="Question: 1/x"
         android:textColor="@android:color/black"
         android:freezesText="true"/>

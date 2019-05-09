@@ -103,7 +103,6 @@ import java.util.Locale;
         //Calcule le QI de l'utisateur sur ce questionnaire, manque l'age
         private void setqi() {
             qi = (int) ((((double) score)/((double)questionnumber))*((double) 60)+((double) 70));
-
         }
 
         private void setImage(){
