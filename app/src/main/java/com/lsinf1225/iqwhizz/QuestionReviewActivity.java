@@ -71,7 +71,7 @@ public class QuestionReviewActivity extends AppCompatActivity {
 
         setQuestion();
 
-
+//bouton qui permet de revenir à review quiz
         riq.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,7 +85,7 @@ public class QuestionReviewActivity extends AppCompatActivity {
 
     }
 
-
+//affiche les questions, la bonne réponse et celle qu'on a fournie
     private void setQuestion(){
 
         if(QuizActivity.getQuestionCountTotal()==5){

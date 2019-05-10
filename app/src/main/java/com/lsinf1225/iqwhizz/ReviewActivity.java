@@ -34,21 +34,24 @@ import java.util.Locale;
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_review);
 
-//lie les textView xml à java
-            //GoodAnswerNumber = findViewById(R.id.text_view_good);
-            // BadAnswerNumber =  findViewById(R.id.text_view_bad);
+            //lie les textView xml à java
             QI=findViewById(R.id.user_qi);
             image=findViewById(R.id.review_image);
             imagename=findViewById(R.id.image_name);
+
             //lie les boutons xml à java pour pouvoir leurs donnés des actions
             Button rb = findViewById(R.id.Review_next_button);
             Button Qreview = findViewById(R.id.Review_question_button);
             score=QuizActivity.getScore();
 
+            //calcul le qi est l'affiche
             setqi();
             QI.setText(Integer.toString(qi));
 
+            //affiche l'une des 3 images en fonction du qi
             setImage();
+
+            //bouton qui termine la review et reset les tableaux d'infos sur questions et réponses et le score
             rb.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -63,6 +66,7 @@ import java.util.Locale;
 
             });
 
+            //lance la review des question sur un click
             Qreview.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -74,11 +78,12 @@ import java.util.Locale;
             });
         }
 
-        //Calcule le QI de l'utisateur sur ce questionnaire, manque l'age
+        //Calcule le QI de l'utisateur sur ce questionnaire
         private void setqi() {
             qi = (score*2) +60;
         }
 
+        //affiche l'image en fct du qi
         private void setImage(){
             if(qi>120){
                 image.setImageResource(R.drawable.einstein);
