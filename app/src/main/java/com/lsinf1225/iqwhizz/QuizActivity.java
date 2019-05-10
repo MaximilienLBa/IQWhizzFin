@@ -296,7 +296,7 @@ public class QuizActivity extends AppCompatActivity {
             }
             else
             {
-                Intent ReviewIntent = new Intent(QuizActivity.this, Review2Activity.class);
+                Intent ReviewIntent = new Intent(QuizActivity.this, ReviewActivityFriend.class);
                 startActivity(ReviewIntent);
                 finish();
             }
