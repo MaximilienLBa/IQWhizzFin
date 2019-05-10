@@ -10,14 +10,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.lsinf1225.iqwhizz.Database.QuizContract;
 import com.lsinf1225.iqwhizz.Database.QuizDbHelper;
 
 import java.util.List;
 
 public class DuelActivity extends AppCompatActivity{
 
-    private Button startquiz,scoreuser1,scoreuser2;
-    private TextView mTextViewRegister;
+    private Button startquiz,rapidquiz;
     private Spinner spinnerCategory;
     private Spinner spinnerQuestionSet;
 
@@ -25,6 +25,13 @@ public class DuelActivity extends AppCompatActivity{
     public static final String EXTRA_CATEGORY_NAME = "extraCategoryName";
     public static final String EXTRA_CATEGORY_ID = "extraCategoryId";
     public static final String EXTRA_QUESTION_SET = "extraQuestionSet";
+
+    public static boolean rapidQuiz = false;
+    public static boolean duel = false;
+    public static int i = 0;
+    public static int scoreUser1;
+    public static int scoreUser2;
+
 
 
     @Override
@@ -35,23 +42,33 @@ public class DuelActivity extends AppCompatActivity{
         spinnerCategory = findViewById(R.id.spinner_category); // affichage du spinner
         spinnerQuestionSet = findViewById(R.id.spinner_question_set);
 
+        loadCategories();
+
+        String[] questionsSets = Question.getAllQuestionSet();
+        ArrayAdapter<String> adapterQuestionSet = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,questionsSets);
+        adapterQuestionSet.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerQuestionSet.setAdapter(adapterQuestionSet);
+
         startquiz = findViewById(R.id.button_start_quiz);
         startquiz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                duel = true;
                 startQuiz();
             }
         });
-        scoreuser1 = findViewById(R.id.button_score_user1);
-        scoreuser1.setOnClickListener(new View.OnClickListener() {
+        rapidquiz = findViewById(R.id.button_rapid_quiz);
+        rapidquiz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                duel = true;
+                rapidQuiz=true;
+                startQuiz();
             }
         });
 
     }
-    private void startQuiz() {
+    private void startQuiz(){
         String questionSet = spinnerQuestionSet.getSelectedItem().toString();
 
         Category selectedCategory = (Category) spinnerCategory.getSelectedItem();
@@ -63,6 +80,16 @@ public class DuelActivity extends AppCompatActivity{
         intent.putExtra(EXTRA_CATEGORY_ID,categoryID);
         intent.putExtra(EXTRA_CATEGORY_NAME,categoryName);
         startActivityForResult(intent,REQUEST_CODE_QUIZZ);
+    }
+
+    private void loadCategories() {
+        QuizDbHelper dbHelper = QuizDbHelper.getInstance(this);
+        List<Category> categories = dbHelper.getAllCategories();
+
+        ArrayAdapter<Category> adapterCategories = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, categories);
+        adapterCategories.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerCategory.setAdapter(adapterCategories);
     }
 
 }

@@ -78,11 +78,6 @@ public class QuestionReviewActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-
-
-
-
     }
 
 //affiche les questions, la bonne réponse et celle qu'on a fournie
@@ -113,11 +108,6 @@ public class QuestionReviewActivity extends AppCompatActivity {
             Q5.setText("Question 5: " +QuizActivity.getQtab(4));
             R5.setText( "True Answer: " +QuizActivity.getRtab(4));
             RU5.setText("Your Answer: " +QuizActivity.getRUtab(4));
-
-
-
-
-
         }
 
     }

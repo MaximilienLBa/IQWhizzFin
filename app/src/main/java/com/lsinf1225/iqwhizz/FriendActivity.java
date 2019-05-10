@@ -36,8 +36,6 @@ public class FriendActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.friend_activity);
-       // mListView = (ListView) findViewById(R.id.listView_friend);
-        // loadFriends();
         editTextFriend = findViewById(R.id.editText_friend);
         Button buttonAdd = findViewById(R.id.button_add);
         buttonAdd.setOnClickListener(new View.OnClickListener(){

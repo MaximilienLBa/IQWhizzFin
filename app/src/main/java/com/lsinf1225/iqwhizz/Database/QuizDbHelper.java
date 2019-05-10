@@ -126,29 +126,6 @@ public class QuizDbHelper extends SQLiteOpenHelper {
         Category c3 = new Category("Math");
         insertCategory(c3);
     }
-
-    private void fillFriendsTable(){
-        for(int i = 0;i<User.getAmis().length;i++)
-        {
-            i++;
-        }
-    }
-
-    //ajoute directement la catégorie à la table en faisant appel à insertCategory
-    public void addCategory (Category category){
-        db = getWritableDatabase();
-        insertCategory(category);
-    }
-
-    //Permet d'ajouter une liste de catégories à la table en faisant appel à insertCategory
-    public void addCategories (List<Category> categories){
-        db = getWritableDatabase();
-
-        for (Category category: categories){
-            insertCategory(category);
-        }
-    }
-
     // cette methode est celle qui ajoute vraiment la categorie en argument dans la base de donnée
     private void insertCategory(Category category){
         ContentValues cv = new ContentValues();
@@ -178,21 +155,6 @@ public class QuizDbHelper extends SQLiteOpenHelper {
                 "A", "B", "C","D", 2, Question.QUESTION_SET_2, Category.PROGRAMMING);
         insertQuestion(q6);
 
-    }
-
-    //ajoute directement l'objet question à la table en faisant appel à insertQuestion
-    public void addQuestion (Question question){
-        db = getWritableDatabase();
-        insertQuestion(question);
-    }
-
-    //ajoute directement la liste d'objet question à la table en faisant appel à insertQuestion
-    public void addQuestions (List<Question> questions){
-        db = getWritableDatabase();
-
-        for (Question question : questions) {
-            insertQuestion(question);
-        }
     }
 
     //Methode qui permet l'ajout de l'objet question dans la base de donnée

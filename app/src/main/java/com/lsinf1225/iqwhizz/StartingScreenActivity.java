@@ -39,7 +39,6 @@ public class StartingScreenActivity extends AppCompatActivity {
 
         spinnerCategory = findViewById(R.id.spinner_category); // affichage du spinner
         spinnerQuestionSet = findViewById(R.id.spinner_question_set);
-        //spinnerFriend = findViewById(R.id.spinner_friends);
         textViewUtilsateur = findViewById(R.id.nom_utilisateur);
 
         String[] questionsSets = Question.getAllQuestionSet();

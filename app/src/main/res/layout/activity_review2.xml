@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@drawable/img_background"
+    tools:context=".ReviewActivity">
+
+    <TextView
+        android:id="@+id/user_gagnant"
+        android:layout_width="450dp"
+        android:layout_height="40dp"
+        android:freezesText="true"
+        android:textColor="@android:color/white"
+        />
+
+
+    <!-- Affichage du QI -->
+    <TextView
+        android:id="@+id/user1_qi"
+        android:layout_width="291dp"
+        android:layout_height="170dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:text="QI"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="110sp" />
+
+    <TextView
+        android:id="@+id/user2_qi"
+        android:layout_width="291dp"
+        android:layout_height="170dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="320dp"
+        android:freezesText="true"
+        android:text="QI2"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="110sp" />
+
+
+
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="33dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginHorizontal="45dp"
+        android:layout_marginTop="70dp"
+        android:freezesText="true"
+        android:text="Your IQ:"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="20sp" />
+
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="33dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginHorizontal="45dp"
+        android:layout_marginTop="270dp"
+        android:freezesText="true"
+        android:text="His IQ:"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="20sp" />
+
+
+    <Button
+        android:id="@+id/Review2_next_button"
+        android:layout_width="wrap_content"
+        android:layout_height="54dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="10dp"
+        android:text="Finish" />
+
+
+
+
+
+</RelativeLayout>

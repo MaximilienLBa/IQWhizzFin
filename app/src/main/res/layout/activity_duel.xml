@@ -1,46 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/img_background"
     android:padding="16dp"
     tools:context=".Classement">
 
     <TextView
-        android:id="@+id/score"
-        android:layout_width="206dp"
-        android:layout_height="40dp"
+        android:layout_width="450dp"
+        android:layout_height="100dp"
         android:textColor="@android:color/white"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="20dp"/>
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:text="Vous voici sur la page pour lancer un quiz contre l'ami
+que vous avez sélectionné, lancer le quiz de votre choix,
+terminez le et donnez le téléphone à votre ami. Laissez
+le remplir un des types de quiz et voyez qui est le plus"/>
+    <TextView
+        android:layout_width="450dp"
+        android:layout_height="100dp"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="75dp"
+        android:layout_marginLeft="125dp"
+        android:text="Intelligent des deux !"/>
+
+
+
+    <Button
+        android:id="@+id/button_rapid_quiz"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="111dp"
+        android:backgroundTint="@android:color/white"
+        android:text="Rapid Quizz" />
 
     <Button
         android:id="@+id/button_start_quiz"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
-        android:layout_above="@id/button_score_user1"
-        android:layout_centerInParent="true"
+        android:layout_below="@+id/button_rapid_quiz"
+        android:layout_centerHorizontal="true"
         android:backgroundTint="@android:color/white"
-        android:text="Start Quizz" />
+        android:text="Normal Quizz" />
 
-    <Button
-        android:id="@+id/button_score_user1"
-        android:layout_width="130dp"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/button_score_user2"
-        android:layout_centerInParent="true"
-        android:backgroundTint="@android:color/white"
-        android:text="Score User1" /> <!-- mettre le login de l'utilisateur -->
 
-    <Button
-        android:id="@+id/button_score_user2"
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/rectangle2"
         android:layout_width="130dp"
+        android:layout_height="40dp"
+        android:layout_alignStart="@+id/button_start_quiz"
+        android:layout_marginTop="212dp"
+        android:background="@drawable/rectangle" />
+
+    <!-- menu déroulant pour les différentes catégories-->
+    <Spinner
+        android:id="@+id/spinner_question_set"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:backgroundTint="@android:color/white"
-        android:text="Score User2" /> <!-- mettre le login de l'utilisateur2 -->
+        android:layout_alignStart="@+id/button_start_quiz"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="-1dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="220dp"
+        android:backgroundTint="@android:color/white" />
+
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/rectangle"
+        android:layout_width="130dp"
+        android:layout_height="40dp"
+        android:layout_alignStart="@+id/button_start_quiz"
+        android:layout_marginTop="267dp"
+        android:background="@drawable/rectangle" />
+
+    <!-- menu déroulant pour les différentes catégories-->
+    <Spinner
+        android:id="@+id/spinner_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spinner_question_set"
+        android:layout_alignStart="@+id/button_start_quiz"
+        android:layout_marginStart="1dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="30dp"
+        android:backgroundTint="@android:color/white" />
+
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="320dp"
+        app:srcCompat="@drawable/brain" />
+
 
 
 </RelativeLayout>

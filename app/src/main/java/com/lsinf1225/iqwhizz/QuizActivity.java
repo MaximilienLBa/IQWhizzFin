@@ -46,6 +46,8 @@ public class QuizActivity extends AppCompatActivity {
     private boolean answered;
     public static int scoreDB;
     public static int scoreFinal;
+    public static int scoreFinalUser1;
+    public static int scoreFinalUser2;
 
     private long backPressedTime;
 
@@ -60,6 +62,8 @@ public class QuizActivity extends AppCompatActivity {
     private static int totaltime;//rajout pour le reviewactivity
     public static int getTotaltime() { return totaltime; }
     public static int getScore(){ return scoreFinal;}
+    public static int getScoreFinalUser1(){ return scoreFinalUser1;}
+    public static int getScoreFinalUser2(){ return scoreFinalUser2;}
     public static int getQuestionCountTotal(){return questionCountTotal;}
 
 
@@ -112,7 +116,7 @@ public class QuizActivity extends AppCompatActivity {
             QuizDbHelper dbHelper = QuizDbHelper.getInstance(this);
 
             questionList = dbHelper.getQuestions(questionSet,categoryID);
-            if(StartingScreenActivity.rapidQuiz == true){
+            if(StartingScreenActivity.rapidQuiz == true||DuelActivity.rapidQuiz){
                 questionCountTotal = 5;
             }else{
                 questionCountTotal = 40;
@@ -124,7 +128,7 @@ public class QuizActivity extends AppCompatActivity {
             if (questionList == null){
                 finish();
             }
-            if(StartingScreenActivity.rapidQuiz == true){
+            if(StartingScreenActivity.rapidQuiz == true||DuelActivity.rapidQuiz){
                 questionCountTotal = 5;
             }else{
                 questionCountTotal = 40;
@@ -264,14 +268,43 @@ public class QuizActivity extends AppCompatActivity {
     private void finishQuiz(){
 
         scoreFinal = scoreDB;
+        if(DuelActivity.i%2==0)
+        {
+            DuelActivity.scoreUser1=scoreDB;
+        }
+        if(DuelActivity.i%2!=0)
+        {
+            DuelActivity.scoreUser2=scoreDB;
+        }
+
         scoreDB = 0;
         questionCounter=0;
 
+        if(DuelActivity.duel==false) {
+            Intent ReviewIntent = new Intent(QuizActivity.this, ReviewActivity.class);
+            startActivity(ReviewIntent);
+            finish();
+        }
+        else
+        {
+            DuelActivity.i++;
+            if(DuelActivity.i%2!=0)
+            {
+                Intent ReviewIntent = new Intent(QuizActivity.this, ReviewActivity.class);
+                startActivity(ReviewIntent);
+                finish();
+            }
+            else
+            {
+                Intent ReviewIntent = new Intent(QuizActivity.this, Review2Activity.class);
+                startActivity(ReviewIntent);
+                finish();
+            }
 
-        // lance la review
-        Intent ReviewIntent = new Intent (QuizActivity.this, ReviewActivity.class);
-        startActivity(ReviewIntent);
-        finish();
+        }
+
+
+
 
     }
 

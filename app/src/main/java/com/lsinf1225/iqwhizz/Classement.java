@@ -27,7 +27,6 @@ public class Classement extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_classement);
         mListView = (ListView) findViewById(R.id.listView);
-        //score = findViewById(R.id.score);
         loadScore();
         loadLeaderBoardTop10();
 
